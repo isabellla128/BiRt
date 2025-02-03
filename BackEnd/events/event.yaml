@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: CloudFormation template for EventBridge RuleRuleToTriggerLambdaToCleanNeptune
+Resources:
+  Rule12db8e24:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: RuleToTriggerLambdaToCleanNeptune
+      ScheduleExpression: rate(24 hours)
+      State: ENABLED
+      Description: Trigger lambda to clean expired data from Neptune
+      EventBusName: default
+      Targets:
+        - Id: Id34f7f70e-c346-4731-acb8-46a6a0ae6e1e
+          Arn:
+            Fn::Sub: >-
+              arn:${AWS::Partition}:lambda:${AWS::Region}:${AWS::AccountId}:function:CleanupNeptuneCache
+Parameters: {}

@@ -1,0 +1,40 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix schema: <http://schema.org/> .
+
+# Definim un Shape pentru artiști
+wd:ArtistShape a sh:NodeShape ;
+    sh:targetClass wd:Q177220 ;  # Se aplică tuturor artiștilor/muzicienilor
+    sh:property [
+        sh:path rdfs:label ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:description "An artist must have at least one label (name)."@en ;
+    ] ;
+    sh:property [
+        sh:path wdt:P27 ;  # Țara artistului
+        sh:maxCount 1 ;
+        sh:description "An artist must have a country (P27)."@en ;
+    ] ;
+    sh:property [
+        sh:path wdt:P136 ;  # Gen muzical
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:description "An artist can have at most one genre (P136)."@en ;
+    ] ;
+    sh:property [
+        sh:path wdt:P18 ;  # Imagine
+        sh:datatype xsd:anyURI ;
+        sh:maxCount 1 ;
+        sh:description "An artist can have at most one image (P18)."@en ;
+    ] ;
+    sh:property [
+        sh:path schema:dateModified ;
+        sh:datatype xsd:dateTime ;
+        sh:maxCount 1 ;
+        sh:description "The modification date must be a valid xsd:dateTime."@en ;
+    ] .

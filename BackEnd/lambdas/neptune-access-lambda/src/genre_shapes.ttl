@@ -1,0 +1,41 @@
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+# Forma SHACL pentru genurile muzicale
+wd:GenreShape a sh:NodeShape ;
+    sh:targetClass wd:Q188451 ;  # Se aplică entităților de tip "gen muzical"
+    
+    # Genurile trebuie să aibă un label
+    sh:property [
+        sh:path rdfs:label ;
+        sh:datatype xsd:string ;
+        sh:minCount 1 ;
+        sh:maxCount 1 ;
+        sh:message "Fiecare gen muzical trebuie să aibă un label" ;
+    ] ;
+    
+    # Genurile trebuie să fie declarate ca gen muzical (wdt:P31 wd:Q188451)
+    sh:property [
+        sh:path wdt:P31 ;
+        sh:hasValue wd:Q188451 ;
+        sh:message "Fiecare gen trebuie să fie de tip 'gen muzical' (wdt:P31 wd:Q188451)" ;
+    ] ;
+
+    # Imaginea (P18) trebuie să fie un URL valid (dacă există)
+    sh:property [
+        sh:path wdt:P18 ;
+        sh:datatype xsd:anyURI ;
+        sh:maxCount 1 ;
+        sh:message "Dacă există, imaginea trebuie să fie un URL valid" ;
+    ] ;
+
+    # Țara de origine (P495) trebuie să fie un string (dacă există)
+    sh:property [
+        sh:path wdt:P495 ;
+        sh:datatype xsd:string ;
+        sh:maxCount 1 ;
+        sh:message "Dacă există, țara de origine trebuie să fie un șir de caractere" ;
+    ] .
