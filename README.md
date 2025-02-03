@@ -1,2 +1,0 @@
-# BiRt
-Big Data Retriever

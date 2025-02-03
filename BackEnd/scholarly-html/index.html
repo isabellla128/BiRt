@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:schema="http://schema.org/">
+
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="style.css" />
+
+	<title property="schema:name">ArtistSearch - Technical Report</title>
+	<meta property="schema:description"
+		content="The Technical Report for the ArtistSearch Artist and Genre Explorer Website" />
+	<meta property="schema:datePublished" content="2025-02-01" />
+
+	<div typeof="schema:author">
+		<div typeof="schema:Person">
+			<meta property="schema:name" content="Madalina Carausu" />
+			<meta property="schema:jobTitle" content="Software Engineer" />
+		</div>
+
+		<div typeof="schema:Person">
+			<meta property="schema:name" content="Isabela Haiura" />
+			<meta property="schema:jobTitle" content="Software Engineer" />
+		</div>
+	</div>
+</head>
+<article>
+	<header>
+		<h1>ArtistSearch - Technical Report</h1>
+	</header>
+</article>
+
+<div role="contentinfo">
+	<ol role="directory">
+		<li>
+			<a href="#abstract">Abstract</a>
+		</li>
+		<li>
+			<a href="#introduction">Introduction</a>
+		</li>
+		<li>
+			<a href="#internal-structures">Internal Data Structures/Models</a>
+			<ol>
+				<li>
+					<a href="#models">Models</a>
+				</li>
+				<li>
+					<a href="#apis">APIs</a>
+				</li>
+				<li>
+					<a href="#statechart">Statechart</a>
+				</li>
+			</ol>
+		</li>
+		<li>
+			<a href="#external-sources">External Data Sources</a>
+		</li>
+		<li>
+			<a href="#linked-data-principles">Linked Data Principles in ArtistSearch</a>
+		</li>
+		<li>
+			<a href="#web-app-development">Web Application Development</a>
+			<ol role="directory">
+				<li>
+					<a href="#tech-used">Frameworks and Technologies Used</a>
+				</li>
+				<li>
+					<a href="#dev-methodology">Development Methodology</a>
+				</li>
+				<li>
+					<a href="#security-considerations">Security Considerations</a>
+				</li>
+				<li>
+					<a href="#scalability-performance">Scalability and Performance Considerations</a>
+				</li>
+			</ol>
+		</li>
+		<li>
+			<a href="#data-handling-processing">In-Depth Overview of Data Management and Processing</a>
+			<ol role="directory">
+				<li>
+					<a href="#data-collection-processing">Collection, Transformation, and Storage of Data</a>
+				</li>
+				<li>
+					<a href="#validation">Data Integrity Checks and Standardization</a>
+				</li>
+				<li>
+					<a href="#error-handling">Handling Data Errors and System Failures</a>
+				</li>
+			</ol>
+		</li>
+		<li>
+			<a href="#technical-deep-dive">Technical Details</a>
+			<ol role="directory">
+				<li>
+					<a href="#infrastructure-diagram">Infrastructure Diagram</a>
+				</li>
+				<li>
+					<a href="#backend-application">Backend Implementation</a>
+				</li>
+				<li>
+					<a href="#frontend-application">FrontEnd Implementation</a>
+				</li>
+				<li>
+					<a href="#cloud-infrastructure">Cloud Infrastructure</a>
+				</li>
+			</ol>
+		</li>
+		<li>
+			<a href="#demo-time">Demo</a>
+		</li>
+		<li>
+			<a href="#user-guide">User Guide</a>
+		</li>
+		<li>
+			<a href="#authors">Authors</a>
+			<ol role="directory">
+				<li>
+					<a href="#author-1">Madalina Carausu</a>
+				</li>
+				<li>
+					<a href="#author-2">Isabela Haiura</a>
+				</li>
+			</ol>
+		</li>
+		<li>
+			<a href="#biblio-references">References</a>
+		</li>
+	</ol>
+</div>
+
+<section typeof="schema:abstract" id="abstract" role="doc-abstract">
+	<h2><span>1. </span>Abstract</h2>
+	<p>
+		<strong>ArtistSearch</strong> is a web application designed to help users explore and discover artists and their musical genres. 
+        The platform allows users to search for artists based on various filters such as genre, country, and time periods. 
+        It offers detailed artist profiles, including information about their occupations, awards, and genres. Additionally, 
+        the application provides recommendations for artists and genres, enhancing the discovery experience. Through seamless 
+        integration with external APIs and a user-friendly interface, <strong>ArtistSearch</strong> aims to provide an engaging and comprehensive 
+        tool for music enthusiasts to learn more about the global music scene.
+</section>
+
+<section typeof="schema:about" id="introduction" role="doc-introduction">
+	<h2><span>2. </span>Introduction</h2>
+	<p>
+        In the ever-expanding world of music, discovering new artists and genres can be a daunting task. 
+        <strong>ArtistSearch</strong> is a web-based application created to simplify this process by providing users with a comprehensive platform for exploring musical 
+        artists and their respective genres. The goal of the application is to enhance users' understanding of the global music landscape through detailed 
+        artist profiles, genre information, and recommendations based on user preferences.
+        <br/>
+        The platform offers a range of filtering options, including genre, country, and time periods, enabling users to find artists that match their interests. 
+        Additionally, <strong>ArtistSearch</strong> integrates with external APIs to provide up-to-date data on artists, allowing for an immersive and data-driven exploration 
+        experience. Whether users are interested in discovering iconic artists from the past or emerging talent, <strong>ArtistSearch</strong> serves as a valuable 
+        resource for music lovers, researchers, and those eager to expand their musical horizons.
+        <br/>
+        This report details the development, architecture, and functionality of the <strong>ArtistSearch</strong> application, presenting both the technical 
+        and user experience aspects that contribute to its effectiveness in making artist and genre discovery easier and more engaging.
+    </p>
+	
+</section>
+
+<section typeof="schema:model" id="internal-structures">
+	<h2 typeof="schema:name"><span>3. </span>Internal Data Structures/Models</h2>
+
+
+	<p typeof="schema:description">
+		This section outlines the internal data structures and models used to represent artists, genres, and their relationships within ArtistSearch.
+	</p>
+
+	<section typeof="schema:model" id="models">
+		<h3 typeof="schema:name">Models</h3>
+		<div typeof="schema:description">
+			<p>Our internal models form the foundation, allowing ArtistSearch to efficiently represent and organize data about artists, genres, and their connections.</p>
+
+			<ul>
+                <li typeof="schema:Person" class="model">Artist</li>
+                <ul>
+                  <li><strong>Description:</strong> An object representing a musical artist or performer.</li>
+                  <li><strong>Required Fields:</strong> id, name</li>
+                  <li><strong>Optional Fields:</strong> photo, country, genres, birth date, death date, occupations, awards, nominations, instruments, wikipedia link</li>
+                </ul>
+              </ul>
+              
+
+            <ul>
+            <li typeof="schema:MusicGenre" class="model">Genre</li>
+            <ul>
+                <li><strong>Description:</strong> An object representing a specific genre of music.</li>
+                <li><strong>Required Fields:</strong> id, label</li>
+                <li><strong>Optional Fields:</strong> countries, image, description, subgenres, parentCategories, superclasses, wikipediaLink</li>
+            </ul>
+            </ul>
+              
+
+			<ul>
+                <li typeof="schema:Person" class="model">Artist Short Model</li>
+                <ul>
+                  <li><strong>Description:</strong> An object representing a musical artist or performer.</li>
+                  <li><strong>Required Fields:</strong> id, name</li>
+                  <li><strong>Optional Fields:</strong> photo, country, genre</li>
+                </ul>
+              </ul>
+              
+
+            <ul>
+                <li typeof="schema:MusicGenre" class="model">Genre Short Model</li>
+                <ul>
+                    <li><strong>Description:</strong> An object representing a specific genre of music.</li>
+                    <li><strong>Required Fields:</strong> id, label</li>
+                    <li><strong>Optional Fields:</strong> countries, image</li>
+                </ul>
+            </ul>
+
+            <ul>
+                <li typeof="schema:ArtistStatistics" class="model">Artist Statistics</li>
+                <ul>
+                    <li><strong>Description:</strong> A model representing statistical data about artists, grouped by country, genre, and decade.</li>
+                    <li><strong>Required Fields:</strong> 
+                        <ul>
+                            <li>byCountry: A list of countries with the number of artists from each country.</li>
+                            <li>byGenre: A list of music genres with the count of artists in each genre.</li>
+                            <li>byDecade: A list of decades with the count of artists born in each decade.</li>
+                        </ul>
+                    </li>
+                </ul>
+            </ul>
+		</div>
+	</section>
+
+	<section typeof="schema:WebAPI" id="apis">
+		<h3 typeof="schema:name">APIs</h3>
+		<div typeof="schema:description">
+			<p>The APIs in ArtistSearch enable smooth interactions, providing users with access to a vast array of artist and music genre data.</p>
+
+			<ul>
+				<li typeof="schema:Artist" class="model">Artist API Endpoints</li>
+                    <ul>
+                        <li>
+                            <h5>/artists:</h5>
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>Summary:</strong> Get a list of artists</li>
+                                <li><strong>Description:</strong> Retrieve a list of artists based on country, genre, and time period.</li>
+                                <li><strong>Parameters:</strong>
+                                    <ul>
+                                        <li><strong>country:</strong> Filter artists by country.</li>
+                                        <li><strong>genre:</strong> Filter artists by genre.</li>
+                                        <li><strong>from-to:</strong> Filter artists by a year range (format 'YYYY-YYYY').</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <h5>/artists/{id}:</h5>
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>Summary:</strong> Get an artist by ID</li>
+                                <li><strong>Description:</strong> Retrieve details of an artist based on their unique ID.</li>
+                                <li><strong>Parameters:</strong>
+                                    <ul>
+                                        <li><strong>id:</strong> The unique identifier of the artist.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <h5>/artists/{id}/recommend:</h5>
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>Summary:</strong> Recommend artists based on a given artist ID</li>
+                                <li><strong>Description:</strong> Retrieve a list of recommended artists similar to the given artist.</li>
+                                <li><strong>Parameters:</strong>
+                                    <ul>
+                                        <li><strong>id:</strong> The unique identifier of the artist.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <h5>/artists/summarize:</h5>
+                            <ul>
+                                <li><strong>Method:</strong> GET</li>
+                                <li><strong>Summary:</strong> Get summarized artist information</li>
+                                <li><strong>Description:</strong> Retrieve a summarized view of artists based on country, genre, time period, and optional limits on the number of countries and genres.</li>
+                                <li><strong>Parameters:</strong>
+                                    <ul>
+                                        <li><strong>country:</strong> The country to filter artists by.</li>
+                                        <li><strong>genre:</strong> The genre to filter artists by.</li>
+                                        <li><strong>from-to:</strong> A range of years in the format 'YYYY-YYYY'.</li>
+                                        <li><strong>limit-countries:</strong> A limit to the number of countries to return.</li>
+                                        <li><strong>limit-genres:</strong> A limit to the number of genres to return.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+				
+			</ul>
+            <ul>
+			<li typeof="schema:Genre" class="model">Genre API Endpoints</li>
+                <ul>
+                    <li>
+                        <h5>/genres:</h5>
+                        <ul>
+                            <li><strong>Method:</strong> GET</li>
+                            <li><strong>Summary:</strong> Get a list of genres</li>
+                            <li><strong>Description:</strong> Retrieve a list of music genres, optionally filtered by country.</li>
+                            <li><strong>Parameters:</strong>
+                                <ul>
+                                    <li><strong>country:</strong> Filter genres by country.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <h5>/genres/{id}:</h5>
+                        <ul>
+                            <li><strong>Method:</strong> GET</li>
+                            <li><strong>Summary:</strong> Get a genre by ID</li>
+                            <li><strong>Parameters:</strong>
+                                <ul>
+                                    <li><strong>id:</strong> The ID of the genre to fetch.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <h5>/genres/{id}/recommendGenres:</h5>
+                        <ul>
+                            <li><strong>Method:</strong> GET</li>
+                            <li><strong>Summary:</strong> Recommend genres based on a given genre ID</li>
+                            <li><strong>Parameters:</strong>
+                                <ul>
+                                    <li><strong>id:</strong> The ID of the genre to fetch recommendations for.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <h5>/genres/{id}/recommendArtists:</h5>
+                        <ul>
+                            <li><strong>Method:</strong> GET</li>
+                            <li><strong>Summary:</strong> Recommend artists based on a given genre ID</li>
+                            <li><strong>Parameters:</strong>
+                                <ul>
+                                    <li><strong>id:</strong> The ID of the genre to fetch artist recommendations for.</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </ul>
+		</div>
+	</section>
+
+	<section typeof="schema:CreativeWork" id="statechart">
+		<h3 typeof="schema:name">Statechart</h3>
+		<div typeof="schema:description">
+			<p>Our statechart plays a crucial role in managing the dynamic interactions within the application, 
+                ensuring seamless navigation and a responsive user experience. It orchestrates transitions between different states, 
+                such as browsing artists, filtering results, viewing artist details, exploring genres, and handling recommendations.</p>  
+
+			<img src="images/statechart.png" alt="Statechart" style="width: 500px; height: 500px;">
+		</div>
+	</section>
+</section>
+
+<section typeof="schema:DataFeed" id="external-sources">
+	<h2 typeof="schema:name"><span>4. </span>External Data Sources</h2>
+
+	<section typeof="schema:Service" id="public-web-services">
+		<div typeof="schema:description">
+            <p>Discover an extensive collection of music-related data through ArtistSearch, where you can access detailed profiles of artists, explore various genres, and uncover the stories behind the music that shapes the industry.</p>
+
+			<section typeof="schema:Dataset" id="wikidata">
+                <h4 typeof="schema:name">
+                    <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" rel="schema:sameAs" property="schema:url">Wikidata</a>
+                </h4>
+                <div typeof="schema:description">
+                    <p>
+                        On ArtistSearch, we provide users with access to an extensive database of information about artists, singers, and musical genres sourced directly from
+                        <a href="https://www.wikidata.org/wiki/Wikidata:Main_Page" rel="schema:sameAs" property="schema:url">Wikidata</a>,
+                        a comprehensive and constantly updated global knowledge base.
+                    </p>
+                    <p>
+                        ArtistSearch allows you to filter artists by country, genre, and period, providing detailed insights into the music world. Through integration with Wikidata’s SPARQL API, our platform retrieves real-time, dynamic data that makes it easy to explore the vast landscape of global music.
+                    </p>
+                    <p>
+                        The platform enables you to filter data based on specific criteria, such as an artist’s country of origin, their musical genre, or the period during which they were active. This is powered by the reliable and open-source information offered by Wikidata, ensuring up-to-date and accurate results for every query.
+                    </p>
+                    <p>
+                        Whether you're looking for information about artists from specific countries or want to dive deeper into a particular music genre, ArtistSearch offers a fast, user-friendly experience that delivers comprehensive results sourced from the best available music data.
+                    </p>
+                    <p>
+                        Our integration with Wikidata enhances the depth of search, allowing you to explore rich content about music and the artists that define it. The ability to filter by country, genre, and timeline makes it easy to find the exact information you’re looking for, whether you’re a music enthusiast, researcher, or just discovering new artists.
+                    </p>
+                    <p>
+                        We are committed to providing the most relevant and up-to-date music data, giving you access to a broad range of artist profiles, musical genres, and timelines. ArtistSearch’s seamless connection to Wikidata ensures that you can discover the latest trends, hidden gems, and major influencers in the music industry.
+                    </p>
+                    <p>
+                        With ArtistSearch, music exploration has never been more intuitive. Dive deep into the world of music and uncover fascinating insights powered by Wikidata, all at your fingertips.
+                    </p>
+                </div>
+            </section>
+            
+            
+		</div>
+	</section>
+</section>
+
+<section id="linked-data-principles" typeof="schema:CreativeWork">
+    <h2 typeof="schema:name"><span>5. </span>Linked Data Principles in ArtistSearch</h2>
+    <div typeof="schema:description">
+        <p>
+            ArtistSearch is built with the principles of Linked Data in mind, turning the exploration of artists, genres, and musical knowledge into a connected and discoverable journey. Here’s how the platform aligns with the core principles of Linked Data:
+        </p>
+
+        <section id="use-uris" typeof="schema:URL">
+            <h3 typeof="schema:name">Use URIs as Names for Things</h3>
+            <div typeof="schema:description">
+                <p>
+                    Each singer, and music genre on ArtistSearch is uniquely identified using URIs. These URIs ensure global recognition and persistent identification across the platform, allowing users to easily discover and explore music-related data.
+                </p>
+            </div>
+        </section>
+
+        <section id="use-http-uris" typeof="schema:URL">
+            <h3 typeof="schema:name">Use HTTP URIs</h3>
+            <div typeof="schema:description">
+                <p>
+                    ArtistSearch exclusively employs HTTP URIs to provide users with direct access to detailed information about artists, genres, and their relationships. These URIs are easily dereferenced, offering a seamless experience for retrieving data.
+                </p>
+            </div>
+        </section>
+
+        <section id="standardized-formats" typeof="schema:CreativeWork">
+            <h3 typeof="schema:name">Provide Useful Information Using Standardized Formats</h3>
+            <div typeof="schema:description">
+                <p>
+                    The platform uses RDF (Resource Description Framework) as a standardized, machine-readable format. This ensures that data about artists and genres is well-structured, easy to interpret by both humans and machines, and extensible for future enhancements.
+                </p>
+            </div>
+        </section>
+
+        <section id="include-links" typeof="schema:URL">
+            <h3 typeof="schema:name">Include Links to Other URIs</h3>
+            <div typeof="schema:description">
+                <p>
+                    ArtistSearch integrates links within its data, forming an interconnected network of music-related information. These links allow users to explore related content, such as discovering artists from the same genre or exploring a particular artist’s career.
+                </p>
+            </div>
+        </section>
+
+        <section id="link-to-data-sources" typeof="schema:URL">
+            <h3 typeof="schema:name">Link to Other Data Sources</h3>
+            <div typeof="schema:description">
+                <p>
+                    ArtistSearch is powered by Wikidata, a trusted external data source. By linking to this vast repository of structured knowledge, the platform provides access to up-to-date and accurate data about artists, genres, and more, while supporting the open web of connected data.
+                </p>
+            </div>
+        </section>
+
+        <p>
+            Through these principles, ArtistSearch embraces the vision of Linked Data by fostering an open, connected, and accessible platform for music discovery. Users are encouraged to dive deep into a world of artists and genres where every connection tells a unique story and every link enhances the music exploration experience.
+        </p>
+    </div>
+</section>
+
+
+<section typeof="schema:CreativeWork" id="web-app-development">
+	<h2 typeof="schema:name"><span>6. </span>Web Application Development</h2>
+
+	<section id="tech-used" typeof="schema:SoftwareSourceCode">
+        <h3 typeof="schema:name">Frameworks and Technologies Used in ArtistSearch</h3>
+        <div typeof="schema:description">
+            <p>
+                ArtistSearch uses a variety of powerful technologies and frameworks to deliver an optimized, scalable, and efficient music search experience. Below are some of the core technologies utilized:
+            </p>
+    
+            <section id="angular" typeof="schema:SoftwareSourceCode">
+                <h4 typeof="schema:name">Angular</h4>
+                <div typeof="schema:description">
+                    <p>
+                        Angular, a popular front-end web development framework, is used for building dynamic single-page applications (SPAs). 
+                        It enables a fast and smooth user experience, particularly for handling complex views and interactions in the ArtistSearch platform. 
+                        The latest version of Angular is used to ensure optimal performance and access to the most recent features and improvements.
+                    </p>
+                    <p>
+                        <strong>Reasoning:</strong> Angular was chosen due to its efficiency in building scalable web applications. 
+                        It provides powerful tools for building reactive UIs, and its modular structure allows for maintainable and reusable code.
+                    </p>
+                </div>
+            </section>
+            
+            <section id="ionic" typeof="schema:SoftwareSourceCode">
+                <h4 typeof="schema:name">Ionic 9</h4>
+                <div typeof="schema:description">
+                    <p>
+                        Ionic 9 is a powerful framework used for building cross-platform mobile applications and web components. 
+                        It allows for the creation of highly customizable and reusable UI components, enabling a smooth and consistent user experience across platforms.
+                    </p>
+                    <p>
+                        <strong>Reasoning:</strong> Ionic was used for the standalone components in ArtistSearch due to its flexibility 
+                        and ease of integration with Angular. By using Ionic 9, we were able to enhance the application's UI with responsive, 
+                        mobile-first components, improving the overall user experience.
+                    </p>
+                </div>
+            </section>
+            
+            <section id="s3-deployment" typeof="schema:SoftwareSourceCode">
+                <h4 typeof="schema:name">Amazon S3 for Frontend Deployment</h4>
+                <div typeof="schema:description">
+                    <p>
+                        Amazon Simple Storage Service (S3) is utilized for deploying and hosting the frontend of ArtistSearch. 
+                        S3 provides scalable, durable, and low-latency storage for static website content, making it ideal for serving 
+                        the frontend assets of the application.
+                    </p>
+                    <p>
+                        <strong>Reasoning:</strong> S3 was chosen for its reliability, cost-effectiveness, and ease of use. 
+                        By leveraging S3 for frontend deployment, we ensure fast and secure delivery of the web application, 
+                        providing a seamless experience for users accessing ArtistSearch from different devices and locations.
+                    </p>
+                </div>
+            </section>            
+    
+            <section id="python" typeof="schema:SoftwareSourceCode">
+                <h4 typeof="schema:name">Python</h4>
+                <div typeof="schema:description">
+                    <p>
+                        Python, a versatile and easy-to-learn programming language, is used for server-side development in ArtistSearch. It is known for its simplicity and readability, which makes it ideal for handling complex logic and backend operations.
+                    </p>
+                    <p>
+                        <strong>Reasoning:</strong> Python was selected because of its rich ecosystem of libraries and frameworks that support rapid development. Its high-level nature allows for quick iterations and prototyping, essential for building a fast, scalable backend for ArtistSearch.
+                    </p>
+                </div>
+            </section>
+    
+            <section id="flask" typeof="schema:SoftwareSourceCode">
+                <h4 typeof="schema:name">Flask</h4>
+                <div typeof="schema:description">
+                    <p>
+                        Flask, a lightweight and flexible Python web framework, is used to build the server-side architecture of ArtistSearch. It provides the necessary tools for creating RESTful APIs and managing client-server interactions.
+                    </p>
+                    <p>
+                        <strong>Reasoning:</strong> Flask was chosen for its simplicity and extensibility, allowing us to build a robust backend API without unnecessary complexity. Its lightweight nature ensures that the server remains fast and responsive.
+                    </p>
+                </div>
+            </section>
+    
+            <section id="lambda" typeof="schema:SoftwareSourceCode">
+                <h4 typeof="schema:name">AWS Lambda</h4>
+                <div typeof="schema:description">
+                    <p>
+                        AWS Lambda is a serverless compute service that allows you to run code in response to specific events, such as user actions on the platform or scheduled tasks. It automatically scales according to demand without the need for server management.
+                    </p>
+                    <p>
+                        <strong>Reasoning:</strong> Lambda was chosen to provide a highly scalable and cost-effective way to process background tasks and events in ArtistSearch. It ensures efficient processing while eliminating the need to manage infrastructure.
+                    </p>
+                </div>
+            </section>
+    
+            <section id="iam-roles" typeof="schema:SoftwareSourceCode">
+                <h4 typeof="schema:name">IAM Roles</h4>
+                <div typeof="schema:description">
+                    <p>
+                        Identity and Access Management (IAM) Roles are used to control access to AWS resources securely. These roles define the permissions granted to different entities, such as users or services, within the AWS infrastructure supporting ArtistSearch.
+                    </p>
+                    <p>
+                        <strong>Reasoning:</strong> IAM Roles were implemented to ensure fine-grained access control within ArtistSearch's AWS environment, enhancing security by restricting access to sensitive resources based on user roles.
+                    </p>
+                </div>
+            </section>
+    
+            <section id="elastic-beanstalk" typeof="schema:SoftwareSourceCode">
+                <h4 typeof="schema:name">AWS Elastic Beanstalk</h4>
+                <div typeof="schema:description">
+                    <p>
+                        AWS Elastic Beanstalk is a platform-as-a-service (PaaS) offering that simplifies the deployment and management of applications in the cloud. It automatically handles the scaling, load balancing, and monitoring of applications.
+                    </p>
+                    <p>
+                        <strong>Reasoning:</strong> Elastic Beanstalk was selected because it abstracts away infrastructure management, allowing the development team to focus on application logic while ensuring scalability and high availability for ArtistSearch.
+                    </p>
+                </div>
+            </section>
+    
+            <section id="event-bridge" typeof="schema:SoftwareSourceCode">
+                <h4 typeof="schema:name">Amazon EventBridge</h4>
+                <div typeof="schema:description">
+                    <p>
+                        Amazon EventBridge is a serverless event bus service that allows you to connect different applications using events. It is used to coordinate workflows and trigger various actions across different services within ArtistSearch.
+                    </p>
+                    <p>
+                        <strong>Reasoning:</strong> EventBridge was chosen for its ability to decouple services and trigger actions based on specific events, making the system more flexible and scalable while ensuring smooth event-driven interactions within ArtistSearch.
+                    </p>
+                </div>
+            </section>
+    
+            <section id="neptune" typeof="schema:SoftwareSourceCode">
+                <h4 typeof="schema:name">Amazon Neptune</h4>
+                <div typeof="schema:description">
+                    <p>
+                        Amazon Neptune is a fully managed graph database service designed to work with highly connected datasets. It enables efficient querying of complex relationships between data points, such as the connections between artists, genres, and their respective attributes in ArtistSearch.
+                    </p>
+                    <p>
+                        <strong>Reasoning:</strong> Neptune was chosen due to its graph-based architecture, which is ideal for representing and querying complex relationships. This allows ArtistSearch to provide fast, dynamic queries for artists, genres, and musical connections.
+                    </p>
+                </div>
+            </section>
+        </div>
+    </section>
+    
+
+	<section typeof="schema:CreativeWork" id="dev-methodology">
+        <h3 typeof="schema:name">Development Methodology</h3>
+        <div typeof="schema:description">
+            <p>The development methodology used in building ArtistSearch ensures efficiency, flexibility, and a high-quality user experience throughout the project.</p>
+    
+            <section id="agile-methodology" typeof="schema:DefinedTerm">
+                <h4 typeof="schema:name">Agile Methodology</h4>
+                <div typeof="schema:description">
+                    <p>
+                        Agile methodology is an iterative and flexible approach to software development that emphasizes collaboration, customer feedback,
+                         and adaptability to changing requirements.
+                    </p>
+                    <p>
+                        <strong>Reasoning:</strong> Agile methodology was adopted for ArtistSearch to enable rapid development cycles and continuous improvement 
+                        throughout the project. The small development team worked in close coordination, allowing for quick responses to feedback, new ideas, 
+                        and any changes in direction. This methodology fostered a highly adaptive development process, ensuring that ArtistSearch remained 
+                        aligned with user needs and project goals, delivering a flexible and user-centered application.
+                    </p>
+                </div>
+            </section>
+        </div>
+    </section>
+    
+    
+
+	<section id="security-considerations" typeof="schema:SoftwareSourceCode">
+		<h3 typeof="schema:name">Security Considerations</h3>
+		<div typeof="schema:description">
+			<p>
+                Security is a fundamental aspect of the development process for ArtistSearch, and every measure is taken to ensure the protection of 
+                the data and interactions. The application leverages AWS IAM Roles (Identity and Access Management) to enforce strict access controls, 
+                allowing only authorized entities to access specific resources, thus minimizing the risk of unauthorized access. 
+                Additionally, all sensitive data stored within AWS is encrypted using industry-standard encryption protocols, ensuring that the data 
+                remains secure both in transit and at rest. The use of encryption guarantees that any data transferred between users and the application 
+                is protected from interception or tampering. 
+            </p>
+            <p>
+                While security is always a priority, ArtistSearch does not require complex authentication mechanisms because the platform does not
+                handle sensitive user data. ArtistSearch is a site designed primarily to display publicly available information sourced from Wikidata, 
+                with additional filtering and data summarization features to enhance user exploration. Since the platform’s core function revolves 
+                around providing music-related data (artists, genres, countries, and periods) without storing personal or confidential 
+                information about users, there was no need for user authentication. All interactions are focused on exploring open data, and no 
+                personal details are required or stored. This approach ensures that users can freely access the content and explore the data 
+                without the risk of exposing sensitive information, keeping the platform simple, user-friendly, and secure.
+            </p>			
+		</div>
+	</section>
+
+	<section id="scalability-performance" typeof="schema:SoftwareSourceCode">
+        <h3 typeof="schema:name">Scalability and Performance Considerations</h3>
+        <div typeof="schema:description">
+            <p>
+                Ensuring a responsive and scalable application is a top priority for the ArtistSearch team. 
+                With our small but dedicated team, we focus on optimizing every aspect of the application’s performance. 
+                Here’s how we achieve it:
+            </p>
+    
+            <section id="efficient-code" typeof="schema:DefinedTerm">
+                <h4 typeof="schema:name">Best Code Practices</h4>
+                <div typeof="schema:description">
+                    <p>
+                        We emphasize clean, efficient coding practices to ensure that the application runs smoothly 
+                        while minimizing resource consumption and maximizing performance.
+                    </p>
+                </div>
+            </section>
+    
+            <section id="advanced-caching" typeof="schema:DefinedTerm">
+                <h4 typeof="schema:name">Caching Mechanisms</h4>
+                <div typeof="schema:description">
+                    <p>
+                        Caching is crucial for improving response times and reducing unnecessary load. 
+                        ArtistSearch implements caching both on the database level (via Neptune) and on the frontend 
+                        to store frequently accessed data, ensuring faster user interactions and minimizing redundant computations.
+                    </p>
+                </div>
+            </section>
+    
+            <section id="optimized-database-queries" typeof="schema:DefinedTerm">
+                <h4 typeof="schema:name">Optimized Database Queries</h4>
+                <div typeof="schema:description">
+                    <p>
+                        To ensure fast and efficient data retrieval, we optimize database queries by utilizing 
+                        indexing and query optimization strategies in Neptune. This allows for quick access 
+                        to the relevant artist and genre information.
+                    </p>
+                </div>
+            </section>
+    
+            <section typeof="schema:DefinedTerm">
+                <h4 typeof="schema:name">Cloud Scalability and Flexibility</h4>
+                <div typeof="schema:description">
+                    <p>
+                        We take full advantage of cloud services to ensure that our infrastructure scales seamlessly. 
+                        This helps us handle varying user traffic and workloads, providing consistent performance 
+                        under different load conditions.
+                    </p>
+                </div>
+            </section>
+    
+            <section id="ongoing-performance-tracking" typeof="schema:DefinedTerm">
+                <h4 typeof="schema:name">Ongoing Performance Monitoring</h4>
+                <div typeof="schema:description">
+                    <p>
+                        Continuous monitoring tools are used to track key performance metrics, enabling us to quickly identify 
+                        and address potential issues, ensuring optimal performance at all times.
+                    </p>
+                </div>
+            </section>
+        </div>
+    </section>
+    
+</section>
+
+<section typeof="schema:CreativeWork" id="data-handling-processing">
+	<h2 typeof="schema:name"><span>7. </span>In-Depth Overview of Data Management and Processing</h2>
+
+	
+    
+        <section typeof="schema:CreativeWork" id="data-collection-processing">
+            <h3 typeof="schema:name">Collection, Transformation, and Storage of Data</h3>
+            <div typeof="schema:description">
+                <p>
+                    ArtistSearch employs a highly efficient and secure process for collecting, transforming, and storing data.
+                     Information is retrieved from Wikidata through carefully crafted SPARQL queries executed by our 
+                     Flask application hosted on AWS Elastic Beanstalk.
+                </p>
+                <p>
+                    SPARQL, as a powerful query language, allows us to query Wikidata’s structured knowledge base efficiently. 
+                    For instance, we leverage non-trivial SPARQL queries to pull data on artists, genres, and related metadata, 
+                    ensuring that we gather precise and relevant information for the platform’s users.
+                </p>
+                <p>
+                    One such complex query involves artist recommendations based on the following factors:
+                </p>
+                <ul>
+                    <li><strong>Genre Overlap</strong>: Artists who share at least one genre with the given artist are considered for recommendations.</li>
+                    <li><strong>Birth Year Proximity</strong>: To ensure relevance, we select artists born within a ±5 year range of the given artist.</li>
+                    <li><strong>Geographical Diversity</strong>: Artists from different countries are prioritized, ensuring that recommendations 
+                        reflect a global perspective.</li>
+                </ul>
+                <p>
+                    This query returns up to 10 recommended artists who meet these criteria, offering personalized and dynamic recommendations to the users.
+                </p>
+                <p>
+                    Once the data is collected, it undergoes necessary transformations to ensure the data 
+                    aligns with the frontend’s requirements before being sent to users. This transformation 
+                    guarantees data consistency and optimizes it for seamless interaction on the platform.
+                </p>
+                <p>
+                    For storage, we use AWS Neptune, a graph database that efficiently handles complex, interconnected data, 
+                    ensuring reliable access and retrieval of information for the application.
+                </p>
+            </div>
+        </section>
+    
+        <section typeof="schema:CreativeWork" id="validation">
+            <h3 typeof="schema:name">Data Integrity Checks and Standardization</h3>
+            <div typeof="schema:description">
+                <p>
+                    ArtistSearch enforces rigorous data integrity checks to ensure accuracy and reliability. 
+                    Before inserting data into AWS Neptune, each data point is validated using SHACL (Shapes Constraint Language), 
+                    ensuring it conforms to predefined data models and standards.
+                </p>
+                <p>
+                    In cases where certain fields may be missing or null, default values are applied, preventing incomplete data 
+                    from entering the system. This ensures that the database remains consistent and the application functions smoothly without errors.
+                </p>
+            </div>
+        </section>
+    
+        <section typeof="schema:CreativeWork" id="error-handling">
+            <h3 typeof="schema:name">Handling Data Errors and System Failures</h3>
+            <div typeof="schema:description">
+                <p>
+                    ArtistSearch includes robust error handling to maintain system reliability even when unexpected issues occur. 
+                    Errors encountered during data collection, transformation, or storage are captured and logged for quick troubleshooting.
+                </p>
+                <p>
+                    When errors arise, the application returns meaningful feedback to users, ensuring they are aware of issues. 
+                    Behind the scenes, the system works to resolve these errors efficiently, ensuring the platform stays stable and responsive, 
+                    offering users a seamless experience.
+                </p>
+            </div>
+        </section>
+    
+    </section>
+    
+
+</section>
+
+<section typeof="schema:CreativeWork" id="technical-deep-dive">
+	<h2 typeof="schema:name"><span>8. </span>Technical Details</h2>
+
+	<section typeof="schema:CreativeWork" id="infrastructure-diagram">
+		<h3 typeof="schema:name">Infrastructure Diagram</h3>
+
+		<img src="images/diagram.jpeg" alt="Infrastructure Diagram" style="width: 500px; height: 500px;" />
+
+		<section typeof="schema:CreativeWork" id="backend-application">
+			<h3 typeof="schema:name">Details regarding the Backend implementation</h3>
+			<div typeof="schema:description">
+				<p>At the backend of ArtistSearch, we’ve structured our system using microservices, which are represented by AWS Lambda functions. 
+                    This architecture ensures that our application remains scalable, maintainable, and responsive, while allowing each component 
+                    to perform its specific role efficiently.
+                </p>
+
+                <p>Each Lambda function is designed to handle a specific operation tied to a particular route in our application. 
+                    This approach divides the workload into smaller, more manageable services that can be independently scaled, modified, 
+                    and updated without disrupting other parts of the system.
+                </p>
+                <p>Here’s how our backend services interact:</p>
+
+
+                <strong> <p>Microservices and Lambda Functions:</p> </strong>
+                <ul>
+                    <li>
+                        We organized the backend code into microservices, each represented by a dedicated AWS Lambda function. This allows us to decouple various components of our application, providing flexibility and ease of maintenance.
+                    </li>
+                    <li>
+                        Each Lambda corresponds to a particular route or endpoint in our application. For instance, when a user makes a request to a specific route in the frontend, the application sends the request to an EC2 instance running a Python Flask server. The Flask server then invokes the appropriate Lambda function to process the request.
+                    </li>
+                </ul>
+
+                <strong> <p>Metadata Search Lambda:</p> </strong>
+                <ul>
+                    <li>
+                        In addition to the core Lambda functions, we have another specialized Lambda designed for searching metadata based on specific criteria, such as country or genre. This Lambda plays a vital role in gathering relevant information from the Wikidata API, as it streamlines the process of filtering the data according to user preferences and application requirements.
+                    </li>
+                </ul>
+
+                <strong> <p>Lambda for Caching:</p> </strong>
+                <ul>
+                    <li>
+                        To optimize response times and reduce the load on external data sources, we utilize caching. We have a dedicated Lambda function that manages cache operations. When a request is made, the relevant Lambda checks if the data is available in the cache. If it is, the Lambda will retrieve the cached data to provide a fast response.
+                    </li>
+                    <li>
+                        If the required data is not present in the cache, the Lambda triggers a process to query Wikidata for fresh data and stores the new results in both the cache and our graph database, AWS Neptune, for future use.
+                    </li>
+                </ul>
+
+                <strong> <p>Scheduled Data Cleanup (EventBridge Lambda):</p> </strong>
+                <ul>
+                    <li>
+                        To maintain the freshness and relevance of the data in the system, we use a scheduled cleanup process. We’ve implemented an AWS EventBridge rule that triggers a Lambda function every 24 hours. This function performs a data cleanup operation on the AWS Neptune database, removing any records that are older than 24 hours. This ensures that the data remains up-to-date and relevant for the user experience, while also optimizing the performance of the database.
+                    </li>
+                </ul>
+
+                <strong> <p>Request Processing Flow:</p> </strong>
+                <ul>
+                    <li>
+                        When a client makes a request to a route in the ArtistSearch application, the request first goes to an EC2 instance running a Python Flask server. This server acts as the middle layer, which manages incoming requests and interacts with the necessary Lambda functions.
+                    </li>
+                    <li>
+                        The server checks whether the requested data is available in the cache by invoking the Lambda function responsible for managing cached data. If the data is found, it is returned to the user immediately, ensuring fast response times.
+                    </li>
+                    <li>
+                        If the cache does not contain the required data, the server sends a request to Wikidata, retrieves the necessary information, and saves it both in the cache and in AWS Neptune, the graph database. This ensures that the data is readily available for future requests. 
+                    </li>
+                </ul>
+
+                <strong> <p>Data Management and Storage in Neptune:</p> </strong>
+                <ul>
+                    <li>
+                        For storing and managing data, we rely on AWS Neptune, a graph database designed to handle complex, interconnected data efficiently. It enables us to store the relationships between various data points—such as artists, albums, genres, and countries—in a way that makes it easy to query and retrieve information.
+                    </li>
+                    <li>
+                        Data is transformed appropriately before being stored in Neptune, ensuring that it adheres to our predefined data models and is easily accessible for queries and recommendations.
+                    </li>
+                </ul>
+
+                <strong> <p>CloudWatch Monitoring for System Health:</p> </strong>
+                <ul>
+                    <li>
+                        Since the system relies heavily on various AWS services (Lambda, EventBridge, Neptune, etc.), we utilize Amazon CloudWatch for monitoring and log aggregation. CloudWatch helps us ensure that the entire system is operating smoothly by providing real-time insights into service performance, error rates, and system health.
+                    </li>
+                    <li>
+                        We set up monitoring across all AWS services in use. This allows us to be notified of any potential issues or failures and take corrective actions as quickly as possible. CloudWatch’s logging capabilities also enable us to trace the flow of requests and troubleshoot issues as they arise, ensuring that our backend architecture remains stable and reliable.
+                    </li>
+                </ul>
+			</div>
+		</section>
+		<section typeof="schema:CreativeWork" id="frontend-application">
+			<h3 typeof="schema:name">Details regarding the FrontEnd implementation</h3>
+			<div typeof="schema:description">
+				<p>
+					The frontend of ArtistSearch has been designed to provide an intuitive and interactive experience for users 
+                    exploring musical artists and genres. Built with Angular and styled for a seamless user interface, the 
+                    frontend leverages powerful visualization tools like D3.js and D3Plus to present data dynamically. 
+                    The application allows users to explore artists, genres, and their relationships in a way that is 
+                    both informative and visually engaging.
+				</p>
+				<p>
+					One of the core components of the frontend is the Artists Page, which displays a complete list of 
+                    artists available in the system. Users can filter this list based on time period, musical genre, 
+                    or country of citizenship, making it easy to refine searches and focus on relevant results. These 
+                    filtering options dynamically update the displayed artists and ensure that the rest of the page, 
+                    including summary visualizations, remains consistent with the selected criteria.
+				</p>
+				<p>
+					A key feature of the Artists Page is the ability to view artists and their relationships to musical 
+                    genres in a graph visualization, created using D3.js and D3Plus. This feature, accessible through 
+                    a dedicated button, presents an interactive network of artists and their associated genres, 
+                    allowing users to explore connections and patterns within the dataset. The visualization updates 
+                    based on the applied filters, ensuring that users always see relevant relationships.
+				</p>
+				<p>
+					Another major feature on the Artists Page is the ability to compare two selected artists through 
+                    a pop-up modal that displays their details side by side. This comparison includes several interactive 
+                    charts and graphs, also implemented using D3.js and D3Plus, that provide insights into their musical careers, 
+                    genre distributions, and other relevant attributes. The modal enhances user engagement by offering a 
+                    deeper understanding of similarities and differences between artists.
+				</p>
+				<p>
+					In addition to individual artist details and comparisons, the Artists Page includes a section dedicated 
+                    to summary visualizations, where three key charts dynamically display the distribution of artists by 
+                    country, genre, and decade. These visualizations provide a broader perspective on musical trends and 
+                    patterns, offering users an overview of how artists are distributed across different categories. 
+                    Like other elements of the page, these charts respect the active filters, ensuring that users can 
+                    analyze specific subsets of data in a visually compelling manner.
+				</p>
+				<p>
+					In addition to individual artist details and comparisons, the Artists Page includes a section dedicated 
+                    to summary visualizations, where three key charts dynamically display the distribution of artists by country, 
+                    genre, and decade. These visualizations provide a broader perspective on musical trends and patterns, offering 
+                    users an overview of how artists are distributed across different categories. Like other elements of the page, 
+                    these charts respect the active filters, ensuring that users can analyze specific subsets of data in a visually 
+                    compelling manner.
+				</p>
+                <p>
+                    Apart from artists, ArtistSearch also features a Genres Page, where users can explore all available musical genres. 
+                    This page includes a filter panel on the left-hand side, allowing users to refine the displayed genres based on a 
+                    selected country. The filtering mechanism ensures that users can discover musical genres that are prevalent in 
+                    specific regions, adding another layer of interactivity to the exploration process.
+                </p>
+                <p>
+                    When a user selects a specific genre, the application retrieves and displays detailed information about that genre, 
+                    including its subgenres. Since subgenres are themselves categorized as genres, users can navigate further into the hierarchy, 
+                    discovering relationships between different musical styles and how they have evolved over time. This hierarchical structure 
+                    is crucial for understanding the complexity of music classification and is presented in an intuitive manner for easy navigation.
+                </p>
+                <p>
+                    Beyond these core functionalities, the frontend has been optimized for performance, ensuring smooth interactions even 
+                    when handling complex data visualizations. The filtering system has been designed to minimize unnecessary data processing, 
+                    updating only the relevant components when a filter is applied. The application also efficiently fetches data from the backend, 
+                    reducing the number of API calls by leveraging caching strategies and ensuring that previously retrieved data is reused whenever possible.
+                </p>
+                <p>
+                    The frontend also implements responsive design principles, making the application accessible across different devices 
+                    and screen sizes. While the visualization-heavy nature of the platform is best experienced on larger screens, 
+                    efforts have been made to ensure that interactions remain smooth and intuitive on smaller displays as well.
+                </p>
+                <p>
+                    Overall, the ArtistSearch frontend provides a feature-rich and highly interactive platform for exploring 
+                    artists and musical genres. By integrating advanced data visualizations, dynamic filtering, and intuitive navigation, 
+                    it offers users a unique way to engage with musical knowledge, making complex relationships within the music industry 
+                    both accessible and visually engaging.
+                </p>
+			</div>
+		</section>
+		<section typeof="schema:CreativeWork" id="cloud-infrastructure">
+            <h3 typeof="schema:name">Cloud Infrastructure Overview</h3>
+            <div typeof="schema:description">
+        
+                <h4>Amazon S3 for Frontend Deployment</h4>
+                <p>The frontend of the application is deployed using Amazon S3, allowing for scalable, secure, and cost-effective static file hosting. This ensures that the user interface remains highly available and performs efficiently.</p>
+        
+                <h4>AWS Elastic Beanstalk for Backend Deployment</h4>
+                <p>The backend routes are deployed using AWS Elastic Beanstalk, which abstracts infrastructure management while providing automatic scaling, load balancing, and monitoring for the Flask-based server.</p>
+        
+                <h4>AWS Lambda Functions</h4>
+                <p>Lambda functions are used extensively for handling specific request processing tasks. Each function corresponds to a particular backend operation, such as data retrieval, processing, or insertion into Amazon Neptune.</p>
+                <p>Additionally, a Lambda function is dedicated to interacting with Wikidata to fetch relevant information, while another function manages metadata retrieval for specific countries or music genres. A separate Lambda function within the same VPC as Neptune is responsible for caching data.</p>
+        
+                <h4>Amazon Neptune for Graph Database Storage</h4>
+                <p>Neptune, hosted within a secure VPC, is used as a graph database to store and manage artist-related data. It ensures efficient querying of relationships and enables complex analytical operations on the dataset.</p>
+        
+                <h4>AWS EventBridge for Scheduled Cleanup</h4>
+                <p>An AWS EventBridge rule triggers a Lambda function every 24 hours to remove outdated data from Amazon Neptune, ensuring that cached data remains relevant and accurate.</p>
+        
+                <h4>IAM Roles and Security Groups</h4>
+                <p>IAM roles are configured to enforce fine-grained access control across AWS services. Security groups are particularly important for managing access between Lambda functions and Amazon Neptune, ensuring secure communication within the VPC.</p>
+        
+                <h4>Amazon CloudWatch for Monitoring</h4>
+                <p>To ensure reliability and performance, CloudWatch is used to collect logs, metrics, and events from various AWS services. This enables proactive issue detection and debugging.</p>
+        
+            </div>
+        </section>
+        
+	</section>
+
+	<section typeof="schema:CreativeWork" id="user-guide">
+        <h2><span>9. </span>User Guide for ArtistSearch</h2>
+        <p>Welcome to ArtistSearch, the ultimate platform for discovering and exploring artists, music genres, and relationships between them. 
+            This guide will help you navigate the application and utilize its features effectively.</p>
+    
+        <h3>Getting Started</h3>
+    
+        <h4>Accessing the Application</h4>
+        <ul>
+            <li><strong>Web Version</strong>: The frontend is accessible via a web browser.</li>
+        </ul>
+    
+        <h4>Home Page</h4>
+        <p>Upon entering the application, you will find the main navigation options that allow you to explore artists, 
+            genres, and detailed analytics about the music industry.</p>
+    
+        <h3>Main Features</h3>
+    
+        <h4>Exploring Artists</h4>
+        <p>The <strong>Artists Page</strong> allows users to browse a complete list of artists. Users can filter artists based on:</p>
+        <ul>
+            <li><strong>Time Period</strong>: Select artists based on their era.</li>
+            <li><strong>Music Genre</strong>: Filter by the genre of music they perform.</li>
+            <li><strong>Country of Citizenship</strong>: View artists based on their nationality.</li>
+        </ul>
+        <p>Clicking on an artist opens a pop-up with detailed information about them. 
+            Additionally, users have the option to export the artist's data in RDF format using the dedicated export button.</p>
+    
+        <h4>Visualizing Artist Relationships</h4>
+        <p>Users can visualize how artists relate to their music genres through an interactive graph. 
+            By clicking the designated button, a dynamic visualization is displayed, showing connections between artists and genres.</p>
+    
+        <h4>Comparing Two Artists</h4>
+        <p>If two artists are selected, a comparison pop-up appears. This feature provides analytical insights into their careers, 
+            styles, and similarities, supported by graphical representations.</p>
+    
+        <h4>Statistical Analysis of Artists</h4>
+        <p>On the same page, users can access summarized insights about the distribution of artists. Three graphical representations display:</p>
+        <ul>
+            <li>The number of artists per country.</li>
+            <li>The number of artists per genre.</li>
+            <li>The number of artists per decade.</li>
+        </ul>
+        <p>These visualizations dynamically update according to the applied filters.</p>
+    
+        <h4>Exploring Music Genres</h4>
+        <p>The <strong>Genres Page</strong> provides a comprehensive list of music genres. 
+            A filtering option allows users to display only genres associated with a specific country. 
+            Clicking on a genre reveals more information, including all its subgenres, which can be further explored.
+            Additionally, users have the option to export the genre's data in RDF format using the dedicated export button.</p>
+    
+        <h3>Additional Features</h3>
+    
+        <h4>Intelligent Artist and Genre Recommendations</h4>  
+        <p>The platform suggests artists based on their similarities with a given artist, on the artist detail pop-up. The recommendation system considers:</p>  
+        <ul>  
+            <li>Artists sharing at least one music genre with the selected artist.</li>  
+            <li>Artists born within ±5 years of the selected artist.</li>  
+            <li>Artists from different countries to ensure diversity.</li>  
+        </ul>  
+        <p>These recommendations help users discover new artists with related styles.</p>  
+
+        <p>Additionally, on the <strong>Genre Page</strong>, at the bottom, users can explore two recommendation lists:</p>  
+        <ul>  
+            <li><strong>Recommended Genres</strong>: These are selected based on genres performed by artists who also perform the currently viewed genre.</li>  
+            <li><strong>Recommended Artists</strong>: A list of artists who perform the selected genre, allowing users to explore musicians with similar styles.</li>  
+        </ul>  
+        <p>These additional recommendations enhance the discovery experience, helping users find both new artists and related music genres effortlessly.</p>
+
+    
+        <h3>Tips for a Better Experience</h3>
+        <ul>
+            <li><strong>Use Filters</strong>: Narrow down searches efficiently to find relevant artists and genres.</li>
+            <li><strong>Explore Graphs</strong>: Utilize visualizations to understand relationships between artists and genres.</li>
+            <li><strong>Check Recommendations</strong>: Discover new artists based on intelligent filtering.</li>
+        </ul>
+    
+        <h3>Troubleshooting</h3>
+        <p>For any issues, ensure you have a stable internet connection. If data appears outdated, allow some time for updates, 
+            as the system periodically refreshes its cache.</p>
+    
+        <p>Thank you for using ArtistSearch! We hope you enjoy discovering new artists and genres.</p>
+    
+        <h3>Screenshots</h3>
+        <img src="images/home_page.png" alt="HomePage">
+        <img src="images/artists_page.png" alt="ArtistsPage">
+        <img src="images/artist_popup.png" alt="ArtistDetails">
+        <img src="images/graph_visualization.png" alt="GraphVisualization">
+        <img src="images/comparison_popup.png" alt="ComparisonPopup">
+        <img src="images/statistics_graphs.png" alt="StatisticsGraphs">
+        <img src="images/genres_page.png" alt="GenresPage">
+        <img src="images/subgenre_details.png" alt="SubgenreDetails">
+    
+    </section>
+    
+
+	<section typeof="schema:CreativeWork" id="demo-time">
+		<h2 typeof="schema:name"><span>10. </span>Demo</h2>
+
+			<div typeof="schema:description">
+                <p>Explore the application's flow and functionalities in this comprehensive video demo: 
+                    <a href="YOUR_VIDEO_LINK_HERE" target="_blank"><strong>App Flow and Live Demo</strong></a>. 
+                    This video walkthrough takes you through each page and interaction, 
+                    highlighting the seamless user experience and intuitive design.</p>  
+
+                <p>Watch as the app is navigated in real-time, including key actions such as filtering artists, 
+                    exploring genres, viewing detailed artist profiles, and exporting data in RDF format. 
+                    Additionally, the demo showcases the intelligent recommendation system and dynamic visualizations created with D3.
+                </p>  
+			</div>
+		</section>
+	</section>
+
+	<section typeof="schema:CreativeWork" id="authors">
+		<h2 typeof="schema:name"><span>11. </span>Authors</h2>
+
+		<section typeof="schema:Person" id="author-1">
+			<div style="display: flex; align-items: center">
+				<h3 typeof="schema:name" style="margin-right: 10px">Madalina Carausu</h3>
+				<img src="images/madalina.jpg" alt="Madalina Carausu"
+					style="width: 100px; height: 100px; border-radius: 50%" />
+			</div>
+			<br />
+
+			<section typeof="schema:socialMedia">
+				<p>
+					<strong>Socials:</strong>
+					<a href="https://github.com/Madalina-Carausu" property="schema:sameAs">GitHub</a>
+				</p>
+			</section>
+		</section>
+
+		<section typeof="schema:Person" id="author-2">
+			<div style="display: flex; align-items: center">
+				<h3 typeof="schema:name" style="margin-right: 10px">Isabela Haiura</h3>
+				<img src="images/isabela.png" alt="Isabela Haiura"
+					style="width: 100px; height: 100px; border-radius: 50%" />
+			</div>
+			<br />
+
+			<section typeof="schema:socialMedia">
+				<p>
+					<strong>Socials:</strong>
+					<a href="https://github.com/isabellla128" property="schema:sameAs">GitHub</a>,
+				</p>
+			</section>
+		</section>
+	</section>
+
+	<section typeof="schema:documentation" id="biblio-references">
+		<h2 typeof="schema:name"><span>13. </span>References</h2>
+		<div typeof="schema:description">
+			<ul>
+				<li><a href="https://www.scholarlyhtml.org/">Scholarly HTML</a></li>
+				<li><a href="https://www.w3.org/RDF/">RDF - Resource Description Framework</a></li>
+				<li><a href="https://www.w3.org/RDFa/">RDFa - RDF in Attributes</a></li>
+				<li><a href="https://schema.org/">Schema.org</a></li>
+				<li><a href="https://www.openapis.org/">OpenAPI Specification</a></li>
+				<li><a href="https://www.wikidata.org/">Wikidata</a></li>
+				<li><a href="https://profs.info.uaic.ro/~busaco/teach/courses/wade/index.html">Web Application
+						Development and
+						Engineering Course</a></li>
+				<li><a href="https://docs.aws.amazon.com/">AWS Documentation</a></li>
+                <li><a href="https://angular.dev/overview">Angular Documentation</a></li>
+                <li><a href="https://flask.palletsprojects.com/en/stable/">Angular Documentation</a></li>
+                <li><a href="https://docs.python.org/3/">Angular Documentation</a></li>                
+			</ul>
+		</div>
+	</section>
+
+</html>
