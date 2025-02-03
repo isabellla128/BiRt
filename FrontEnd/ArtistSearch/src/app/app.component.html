@@ -1,4 +1,10 @@
-<ion-app>
-  <app-menu></app-menu>
-  <ion-router-outlet></ion-router-outlet>
+<ion-app itemscope itemtype="http://schema.org/WebApplication">
+  <app-menu
+    itemscope
+    itemtype="http://schema.org/SiteNavigationElement"
+  ></app-menu>
+  <ion-router-outlet
+    itemscope
+    itemtype="http://schema.org/EntryPoint"
+  ></ion-router-outlet>
 </ion-app>

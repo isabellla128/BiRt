@@ -1,8 +1,14 @@
-<ion-content [fullscreen]="true" class="artist-content">
-  <ng-container *ngIf="artist; else loading"
-    ><div
+<ion-content
+  [fullscreen]="true"
+  class="artist-content"
+  vocab="http://schema.org/"
+  typeof="CreativeWork"
+>
+  <ng-container *ngIf="artist; else loading">
+    <div
       class="background"
       [ngStyle]="{ 'background-image': 'url(' + getArtistPhoto(artist) + ')' }"
+      property="image"
     ></div>
 
     <div class="artist-container">
@@ -14,20 +20,22 @@
                 class="artist-photo"
                 [src]="getArtistPhoto(artist)"
                 alt="Artist Image"
+                property="image"
               />
-
-              <h1 class="artist-name">{{ artist.name }}</h1>
+              <h1 class="artist-name" property="name">{{ artist.name }}</h1>
             </div>
+
             <div class="detail">
               <h3><i class="fas fa-music"></i> Genres:</h3>
               <div class="items-genre">
                 <p
                   *ngFor="let genre of artist.genres; let i = index"
                   class="genre-item"
+                  rel="genre"
                 >
-                  <a [routerLink]="['/genres', genre.id]"
-                    >{{ genre.label | titlecase }}</a
-                  >
+                  <a [routerLink]="['/genres', genre.id]" property="genre">
+                    {{ genre.label | titlecase }}
+                  </a>
                   <span *ngIf="i < artist.genres.length - 1"></span>
                 </p>
               </div>
@@ -36,7 +44,10 @@
             <div class="detail">
               <h3><i class="fas fa-microphone"></i> Occupations:</h3>
               <div class="items">
-                <p *ngFor="let occupation of artist.occupations; let i = index">
+                <p
+                  *ngFor="let occupation of artist.occupations; let i = index"
+                  property="jobTitle"
+                >
                   {{ occupation | titlecase }}<span
                     *ngIf="i < artist.occupations.length - 1"
                     >,</span
@@ -49,7 +60,10 @@
               <h3><i class="fas fa-trophy"></i> Awards:</h3>
               <div class="items">
                 <ul *ngIf="artist.awards?.length; else noAwards">
-                  <li *ngFor="let award of artist.awards; let i = index">
+                  <li
+                    *ngFor="let award of artist.awards; let i = index"
+                    property="award"
+                  >
                     {{ award }}<span *ngIf="i < artist.awards.length - 1"
                       >,</span
                     >
@@ -67,6 +81,7 @@
                 <ul *ngIf="artist.nominations?.length; else noNominations">
                   <li
                     *ngFor="let nomination of artist.nominations; let i = index"
+                    property="nominee"
                   >
                     {{ nomination }}<span
                       *ngIf="i < artist.nominations.length - 1"
@@ -88,6 +103,7 @@
                 >
                   <p
                     *ngFor="let instrument of artist.instruments; let i = index"
+                    property="instrument"
                   >
                     {{ instrument | titlecase }}<span
                       *ngIf="i < artist.instruments.length - 1"
@@ -119,8 +135,13 @@
                     *ngFor="let recommended of recommendationsDisplayed; let i = index"
                     class="recommendation"
                     [ngClass]="getClass(i)"
+                    typeof="CreativeWork"
                   >
-                    <a [routerLink]="['/artists', recommended?.id]">
+                    <a
+                      [routerLink]="['/artists', recommended?.id]"
+                      property="potentialAction"
+                      typeof="Action"
+                    >
                       <img
                         *ngIf="recommended !== null"
                         [src]="getArtistPhoto(recommended)"
@@ -154,6 +175,7 @@
     </div>
   </ng-container>
 </ion-content>
+
 <ng-template #loading>
   <div class="loader-container">
     <div class="loader"></div>

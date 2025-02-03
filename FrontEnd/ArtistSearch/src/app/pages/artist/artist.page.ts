@@ -6,10 +6,12 @@ import { IonContent } from '@ionic/angular/standalone';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { ArtistSummaryModel } from '../../models/artistSummary.model';
+import { FilterModel } from '../../models/filter.model';
 import { ResponseArtistSummaryModel } from '../../models/responseArtistSummary.model';
 import { SearchArtistService } from '../../services/searchArtist.service';
 import { SearchForm } from './artist.form';
 import { ComparisonPopupComponent } from './comparison-popup/comparison-popup.page';
+import { SummarizePopupComponent } from './summarize-popup/summarize-popup.page';
 import { VisualizePopupComponent } from './visualize-popup/visualize-popup.page';
 
 @Component({
@@ -24,6 +26,7 @@ import { VisualizePopupComponent } from './visualize-popup/visualize-popup.page'
     ComparisonPopupComponent,
     VisualizePopupComponent,
     ToastrModule,
+    SummarizePopupComponent,
   ],
   templateUrl: './artist.page.html',
   styleUrls: ['./artist.page.scss'],
@@ -32,7 +35,7 @@ import { VisualizePopupComponent } from './visualize-popup/visualize-popup.page'
 export class ArtistPage implements OnInit, OnDestroy {
   searchForm: SearchForm = new SearchForm();
   artists: ArtistSummaryModel[] = [];
-
+  filters: FilterModel | undefined;
   selectedArtists: ArtistSummaryModel[] = [];
   isComparing = false;
 
@@ -128,9 +131,6 @@ export class ArtistPage implements OnInit, OnDestroy {
 
   onSummarize() {
     this.showSummarizePopup = true;
-    this.searchService.getSummarize().subscribe((response) => {
-      console.log(response);
-    });
   }
 
   onSearch() {

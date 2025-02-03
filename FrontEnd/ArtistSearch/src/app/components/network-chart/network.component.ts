@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import * as d3plus from 'd3plus';
 import { ArtistModel } from '../../models/artist.model';
 import { IdGroupModel, SourceTargetModel } from '../models';
@@ -8,15 +8,19 @@ import { IdGroupModel, SourceTargetModel } from '../models';
   selector: 'app-network-chart',
   standalone: true,
   imports: [CommonModule],
-  template: `<div class="network-chart"></div>`,
+  template: ``,
 })
 export class NetworkChartComponent implements OnInit {
   @Input() artists!: ArtistModel[];
   @Input() width!: number;
   @Input() height!: number;
-
+  @Output() chartRendered = new EventEmitter<boolean>();
+  
   ngOnInit(): void {
-    this.createNetworkChart();
+    if (this.artists.length > 0) {
+      console.log('network');
+      this.createNetworkChart();
+    }
   }
 
   createNetworkChart(): void {
@@ -42,6 +46,8 @@ export class NetworkChartComponent implements OnInit {
         r: 15,
       })
       .render();
+
+    this.chartRendered.emit(true);
   }
 
   private extractNodes(artists: ArtistModel[]): IdGroupModel[] {

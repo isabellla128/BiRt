@@ -1,0 +1,127 @@
+.contact-content {
+  margin-top: 56px;
+  --background: url("/assets/images/background_contact.png") no-repeat center
+    center / cover;
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.intro-section {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  flex-direction: column;
+}
+
+.intro-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+h1 {
+  font-size: 6vw;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  color: rgb(210, 179, 218);
+}
+
+.contact-person-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Două coloane egale */
+  gap: 30px; /* Spațiu între coloane */
+  width: 80%;
+  justify-items: center;
+}
+
+.contact-person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
+
+.contact-person h2 {
+  font-size: 2.5vw;
+  margin-bottom: 10px;
+}
+
+.person-photo {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+a {
+  color: #fa9ac4;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgba(250, 38, 130, 0.8);
+}
+
+a:visited:hover {
+  color: rgba(250, 38, 130, 0.8);
+}
+
+a:visited {
+  color: #fa9ac4;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 6vw;
+  }
+
+  .contact-person h2 {
+    font-size: 4vw;
+  }
+
+  p,
+  a {
+    font-size: 4vw;
+  }
+
+  .person-photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .contact-person-container {
+    grid-template-columns: 1fr; /* O singură coloană pe ecrane mici */
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 8vw;
+  }
+
+  .contact-person h2 {
+    font-size: 5vw;
+  }
+
+  p,
+  a {
+    font-size: 5vw;
+  }
+
+  .person-photo {
+    width: 100px;
+    height: 100px;
+  }
+}

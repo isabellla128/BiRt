@@ -22,9 +22,9 @@ export const routes: Routes = [
       import('./pages/genre/genre.page').then((m) => m.GenrePage),
   },
   {
-    path: 'graphs',
+    path: 'contact',
     loadComponent: () =>
-      import('./pages/graph/graph.page').then((m) => m.GraphPage),
+      import('./pages/contact/contact.page').then((m) => m.ContactPage),
   },
   {
     path: 'artists/:id',

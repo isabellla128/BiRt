@@ -7,7 +7,7 @@ import { ArtistModel } from '../../models/artist.model';
   selector: 'app-bar-chart',
   standalone: true,
   imports: [CommonModule],
-  template: `<div class="bar-chart"></div>`,
+  template: ``,
 })
 export class BarChartComponent implements OnInit {
   @Input() artist1!: ArtistModel;
@@ -16,7 +16,10 @@ export class BarChartComponent implements OnInit {
   @Input() height!: number;
 
   ngOnInit(): void {
-    this.createBarChart();
+    if (this.artist1 && this.artist2) {
+      console.log('bar');
+      this.createBarChart();
+    }
   }
 
   createBarChart(): void {

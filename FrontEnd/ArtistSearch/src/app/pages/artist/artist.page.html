@@ -1,30 +1,53 @@
-<ion-content [fullscreen]="true" class="search-content">
+<ion-content
+  [fullscreen]="true"
+  class="search-content"
+  itemscope
+  itemtype="https://schema.org/CreativeWork"
+>
   <div class="page-container">
     <div class="filters-and-form-container">
-      <form [formGroup]="searchForm">
+      <form
+        [formGroup]="searchForm"
+        itemscope
+        itemtype="https://schema.org/FormAction"
+      >
         <div class="filters-container">
-          <div class="filter-group">
-            <label for="country">Country</label>
+          <div
+            class="filter-group"
+            itemscope
+            itemtype="https://schema.org/PropertyValueSpecification"
+          >
+            <label for="country" itemprop="name">Country</label>
             <input
               id="country"
               type="text"
               formControlName="country"
               placeholder="Country"
+              itemprop="value"
             />
           </div>
-          <div class="filter-group">
-            <label for="genre">Genre</label>
-
+          <div
+            class="filter-group"
+            itemscope
+            itemtype="https://schema.org/PropertyValueSpecification"
+          >
+            <label for="genre" itemprop="name">Genre</label>
             <input
               type="text"
               id="genre"
               formControlName="genre"
               placeholder="Genre"
+              itemprop="value"
             />
           </div>
 
-          <div class="filter-group" [ngStyle]="{ 'margin-top': '0px' }">
-            <label for="fromYear">From-To Year</label>
+          <div
+            class="filter-group"
+            [ngStyle]="{ 'margin-top': '0px' }"
+            itemscope
+            itemtype="https://schema.org/PropertyValueSpecification"
+          >
+            <label for="fromYear" itemprop="name">From-To Year</label>
 
             <div class="slider-container">
               <input
@@ -35,6 +58,7 @@
                 formControlName="fromYear"
                 step="1"
                 class="slider"
+                itemprop="value"
               />
             </div>
 
@@ -47,10 +71,12 @@
                 formControlName="toYear"
                 step="1"
                 class="slider"
+                itemprop="value"
               />
               <span
                 *ngIf="searchForm.get('fromYear')?.value || searchForm.get('toYear')?.value"
                 [ngStyle]="{ 'margin-top': '-10px', 'width': '100%' }"
+                itemprop="value"
                 >{{ searchForm.get('fromYear')?.value }}-{{
                 searchForm.get('toYear')?.value }}</span
               >
@@ -59,6 +85,7 @@
           <span
             *ngIf="searchForm.errors?.['yearRangeInvalid']"
             class="error-message"
+            itemprop="errorMessage"
           >
             From should be less than To.
           </span>
@@ -69,8 +96,11 @@
                 type="button"
                 class="gradient-button"
                 (click)="onSearch()"
+                itemscope
+                itemtype="https://schema.org/Action"
+                itemprop="action"
               >
-                Search
+                <span itemprop="name">Search</span>
               </div>
             </div>
             <hr class="horizontal-divider" />
@@ -81,31 +111,43 @@
                 class="gradient-button"
                 (click)="selectedArtists.length === 2 ? compareArtists() : onCompare()"
                 [class.disabled]="selectedArtists.length === 2 ? !isComparing : isComparing"
+                itemscope
+                itemtype="https://schema.org/Action"
+                itemprop="action"
               >
-                Compare
+                <span itemprop="name">Compare</span>
               </div>
               <div
                 type="button"
                 class="gradient-button"
                 (click)="onDiscard()"
                 [class.disabled]="!isComparing"
+                itemscope
+                itemtype="https://schema.org/Action"
+                itemprop="action"
               >
-                Discard
+                <span itemprop="name">Discard</span>
               </div>
 
               <div
                 type="button"
                 class="gradient-button"
                 (click)="onVisualize()"
+                itemscope
+                itemtype="https://schema.org/Action"
+                itemprop="action"
               >
-                <div>Visualize</div>
+                <span itemprop="name">Visualize</span>
               </div>
               <div
                 type="button"
                 class="gradient-button"
                 (click)="onSummarize()"
+                itemscope
+                itemtype="https://schema.org/Action"
+                itemprop="action"
               >
-                <div>Summarize</div>
+                <span itemprop="name">Summarize</span>
               </div>
             </div>
           </div>
@@ -113,7 +155,11 @@
       </form>
     </div>
     <div class="artist-container-overflow">
-      <div class="artists-container">
+      <div
+        class="artists-container"
+        itemscope
+        itemtype="https://schema.org/ItemList"
+      >
         <ng-container *ngIf="artists.length > 0; else loading">
           <div
             class="artist-card"
@@ -121,17 +167,31 @@
             (click)="toggleSelection(artist)"
             [ngClass]="{ 'selected': isSelected(artist) }"
             [ngStyle]="{ 'background-image': 'url(' + getArtistPhoto(artist) + ')', 'background-position': 'top' }"
+            itemscope
+            itemtype="https://schema.org/Person"
           >
-            <a *ngIf="!isComparing" [routerLink]="['/artists', artist.id]">
+            <a
+              *ngIf="!isComparing"
+              [routerLink]="['/artists', artist.id]"
+              itemprop="url"
+            >
               <div class="text-overlay">
-                <div class="name">{{ artist.name| titlecase }}</div>
-                <div class="genre">{{ artist.genre | titlecase}}</div>
+                <div class="name" itemprop="name">
+                  {{ artist.name| titlecase }}
+                </div>
+                <div class="genre" itemprop="genre">
+                  {{ artist.genre | titlecase}}
+                </div>
               </div>
             </a>
             <div *ngIf="isComparing">
               <div class="text-overlay">
-                <div class="name">{{ artist.name| titlecase }}</div>
-                <div class="genre">{{ artist.genre | titlecase}}</div>
+                <div class="name" itemprop="name">
+                  {{ artist.name| titlecase }}
+                </div>
+                <div class="genre" itemprop="genre">
+                  {{ artist.genre | titlecase}}
+                </div>
               </div>
             </div>
           </div>
@@ -143,6 +203,8 @@
         [show]="showComparisonPopup"
         [selectedArtists]="selectedArtists"
         (discard)="discardComparison()"
+        itemscope
+        itemtype="https://schema.org/CreativeWork"
       ></app-comparison-popup>
     </ng-container>
     <ng-container *ngIf="showVisualizePopup">
@@ -150,19 +212,24 @@
         [show]="showVisualizePopup"
         [artists]="artists"
         (discard)="discardVisualize()"
+        itemscope
+        itemtype="https://schema.org/CreativeWork"
       ></app-visualize-popup>
     </ng-container>
-    <ng-container *ngIf="true">
-      <!-- showSummarizePopup -->
-      <!-- <app-summarize-popup
+    <ng-container *ngIf="showSummarizePopup">
+      <app-summarize-popup
+        [filters]="this.searchForm.value"
         [show]="showSummarizePopup"
         (discard)="discardSummarized()"
-      ></app-summarize-popup> -->
+        itemscope
+        itemtype="https://schema.org/CreativeWork"
+      ></app-summarize-popup>
     </ng-container>
   </div>
 </ion-content>
+
 <ng-template #loading>
-  <div class="loader-container">
+  <div class="loader-container" itemscope itemtype="https://schema.org/Thing">
     <div class="loader"></div>
   </div>
 </ng-template>

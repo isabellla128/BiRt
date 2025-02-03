@@ -1,18 +1,104 @@
-<div class="popup-overlay" *ngIf="show">
+<div
+  class="popup-overlay"
+  *ngIf="show"
+  itemscope
+  itemtype="https://schema.org/Thing"
+>
   <div class="popup-overflow">
     <div class="popup-inner-container">
       <div class="popup">
-        <h3>Summarize:</h3>
+        <h3 itemprop="name">Summarize:</h3>
+        <div class="comparison-chart" *ngIf="isGraphShown ; else loading">
+          <div *ngIf="data && data.byCountry && data.byCountry.length > 0">
+            <h2 *ngIf="currentChartIndex === 0" itemprop="name">
+              Artists by Country
+            </h2>
+            <div
+              class="summarize-chart-container"
+              itemscope
+              itemtype="https://schema.org/BarChart"
+            >
+              <app-by-country-bar-chart
+                *ngIf="currentChartIndex === 0"
+                [data]="data.byCountry"
+                [width]="width"
+                [height]="height"
+                itemscope
+                itemtype="https://schema.org/BarChart"
+                itemprop="chart"
+              ></app-by-country-bar-chart>
+            </div>
 
-        <div class="visualize-chart">
+            <h2 *ngIf="currentChartIndex === 1" itemprop="name">
+              Artists by Genre
+            </h2>
+            <div
+              class="summarize-chart-container"
+              itemscope
+              itemtype="https://schema.org/BarChart"
+            >
+              <app-by-genre-bar-chart
+                *ngIf="currentChartIndex === 1"
+                [data]="data.byGenre"
+                [width]="width"
+                [height]="height"
+                itemscope
+                itemtype="https://schema.org/BarChart"
+                itemprop="chart"
+              ></app-by-genre-bar-chart>
+            </div>
 
+            <h2 *ngIf="currentChartIndex === 2" itemprop="name">
+              Artists by Decade
+            </h2>
+            <div
+              class="summarize-chart-container"
+              itemscope
+              itemtype="https://schema.org/BarChart"
+            >
+              <app-by-decade-bar-chart
+                *ngIf="currentChartIndex === 2"
+                [data]="data.byDecade"
+                [width]="width"
+                [height]="height"
+                itemscope
+                itemtype="https://schema.org/BarChart"
+                itemprop="chart"
+              ></app-by-decade-bar-chart>
+            </div>
+          </div>
+          <hr class="horizontal-divider" />
         </div>
 
-        <div type="button" class="gradient-button" (click)="discard.emit()">
-          Discard
+        <!-- Acțiuni de tip buton -->
+        <div
+          type="button"
+          class="gradient-button"
+          (click)="nextChart()"
+          itemscope
+          itemtype="https://schema.org/Action"
+          itemprop="action"
+        >
+          <span itemprop="name">Next</span>
+        </div>
+
+        <div
+          type="button"
+          class="gradient-button"
+          (click)="discard.emit()"
+          itemscope
+          itemtype="https://schema.org/Action"
+          itemprop="action"
+        >
+          <span itemprop="name">Discard</span>
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<ng-template #loading>
+  <div class="loader-container" itemscope itemtype="https://schema.org/Thing">
+    <div class="loader"></div>
+  </div>
+</ng-template>

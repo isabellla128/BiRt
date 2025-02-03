@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ArtistModel } from '../models/artist.model';
 import { ResponseArtistSummaryModel } from '../models/responseArtistSummary.model';
+import { ResponseSummarizeModel } from '../models/responseSummarize.nodel';
 
 @Injectable({
   providedIn: 'root',
@@ -20,12 +21,6 @@ export class SearchArtistService {
     from?: number,
     to?: number
   ): Observable<ResponseArtistSummaryModel> {
-    console.log(
-      'genre:' + genre,
-      'country:' + country,
-      'from:' + from,
-      'to:' + to
-    );
     const params = this.buildParams(genre, country, from, to);
 
     return this.http.get<ResponseArtistSummaryModel>(this.apiUrl, { params });
@@ -36,23 +31,17 @@ export class SearchArtistService {
     country?: string,
     from?: number,
     to?: number
-  ): Observable<any> {
-    const body = {
-      'limit-countries': '10',
-      'limit-genres': '10',
-      'from-to': '1950-2015',
-      country: 'finland',
-      genre: 'jazz',
-    };
+  ): Observable<ResponseSummarizeModel> {
+    let params = this.buildParams(genre, country, from, to);
 
-    const options = {
-      body: body,
-      headers: new HttpHeaders(),
-    };
+    console.log('params', params);
+    params = params.set('limit-countries', '30');
+    params = params.set('limit-genres', '30');
+    console.log('params', params);
 
-    console.log(options);
-
-    return this.http.get<any>(this.apiUrlForSummarize, options);
+    return this.http.get<ResponseSummarizeModel>(this.apiUrlForSummarize, {
+      params,
+    });
   }
 
   getArtistById(id: string): Observable<ArtistModel> {

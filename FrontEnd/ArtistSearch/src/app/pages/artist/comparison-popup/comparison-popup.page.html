@@ -1,20 +1,37 @@
-<div class="popup-overlay" *ngIf="show">
+<div
+  class="popup-overlay"
+  *ngIf="show"
+  itemscope
+  itemtype="https://schema.org/Thing"
+>
   <div class="popup-overflow">
     <div class="popup-inner-container">
       <div class="popup">
         <h3>Comparing:</h3>
-        <p>{{ selectedArtists[0]!.name }} vs {{ selectedArtists[1]!.name }}</p>
+        <p>
+          <span itemprop="name">{{ selectedArtists[0]!.name }}</span> vs
+          <span itemprop="name">{{ selectedArtists[1]!.name }}</span>
+        </p>
 
         <div class="comparison-chart">
           <app-comparison-chart
             [artistId1]="selectedArtists[0].id"
             [artistId2]="selectedArtists[1].id"
+            itemscope
+            itemtype="https://schema.org/ComparisonChart"
           >
           </app-comparison-chart>
         </div>
 
-        <div type="button" class="gradient-button" (click)="discard.emit()">
-          Discard
+        <div
+          type="button"
+          class="gradient-button"
+          (click)="discard.emit()"
+          itemscope
+          itemtype="https://schema.org/Action"
+          itemprop="action"
+        >
+          <span itemprop="name">Discard</span>
         </div>
       </div>
     </div>

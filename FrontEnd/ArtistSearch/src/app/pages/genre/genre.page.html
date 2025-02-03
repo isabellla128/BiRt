@@ -1,7 +1,11 @@
 <ion-content [fullscreen]="true" class="search-content">
   <div class="page-container">
     <div class="filters-and-form-container">
-      <form [formGroup]="genreForm">
+      <form
+        [formGroup]="genreForm"
+        itemscope
+        itemtype="http://schema.org/CreativeWork"
+      >
         <div class="filters-container">
           <div class="filter-group">
             <label for="country">Country</label>
@@ -10,6 +14,7 @@
               type="text"
               formControlName="country"
               placeholder="Country"
+              itemprop="keywords"
             />
           </div>
 
@@ -25,6 +30,7 @@
                 formControlName="fromYear"
                 step="1"
                 class="slider"
+                itemprop="dateCreated"
               />
             </div>
 
@@ -37,10 +43,11 @@
                 formControlName="toYear"
                 step="1"
                 class="slider"
+                itemprop="dateCreated"
               />
               <span
                 *ngIf="genreForm.get('fromYear')?.value || genreForm.get('toYear')?.value"
-                [ngStyle]="{  'width': '100%' }"
+                [ngStyle]="{ 'width': '100%' }"
                 >{{ genreForm.get('fromYear')?.value }}-{{
                 genreForm.get('toYear')?.value }}</span
               >
@@ -59,6 +66,7 @@
                 type="button"
                 class="gradient-button"
                 (click)="onSearch()"
+                aria-label="Search"
               >
                 Search
               </div>
@@ -74,10 +82,14 @@
             class="artist-card"
             *ngFor="let genre of genres"
             [ngStyle]="{ 'background-image': 'url(' + getGenreImage(genre) + ')', 'background-position': 'top' }"
+            itemscope
+            itemtype="http://schema.org/MusicGenre"
           >
-            <a [routerLink]="['/genres', genre.id]">
+            <a [routerLink]="['/genres', genre.id]" itemprop="url">
               <div class="text-overlay">
-                <div class="name">{{ genre.label| titlecase }}</div>
+                <div class="name" itemprop="name">
+                  {{ genre.label | titlecase }}
+                </div>
               </div>
             </a>
           </div>

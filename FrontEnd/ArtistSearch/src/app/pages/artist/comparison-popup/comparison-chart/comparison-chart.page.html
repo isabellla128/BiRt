@@ -1,25 +1,33 @@
 <ng-container *ngIf="this.isGraphShown ; else loading">
   <h2>Awards and Nominations</h2>
+  <div class="bar-chart" itemscope itemtype="https://schema.org/BarChart"></div>
   <app-bar-chart
     [artist1]="artist1"
     [artist2]="artist2"
     [width]="width"
     [height]="height"
+    itemscope
+    itemtype="https://schema.org/CreativeWork"
   ></app-bar-chart>
 
   <hr class="horizontal-divider" />
+
   <h2>Instruments</h2>
-  <div class="actor-container">
+  <div
+    class="actor-container"
+    itemscope
+    itemtype="https://schema.org/MusicGroup"
+  >
     <div class="actor-left">
-      <h3>{{artist1.name | titlecase}}</h3>
-      <p *ngFor="let instrument of artist1.instruments">
+      <h3 itemprop="name">{{artist1.name | titlecase}}</h3>
+      <p *ngFor="let instrument of artist1.instruments" itemprop="instrument">
         {{ instrument | slice:0:1 | uppercase }}{{ instrument | slice:1 }}
       </p>
     </div>
 
     <div class="actor-right">
-      <h3>{{artist2.name}}</h3>
-      <p *ngFor="let instrument of artist2.instruments">
+      <h3 itemprop="name">{{artist2.name}}</h3>
+      <p *ngFor="let instrument of artist2.instruments" itemprop="instrument">
         {{ instrument | slice:0:1 | uppercase }}{{ instrument | slice:1 }}
       </p>
     </div>
@@ -27,25 +35,39 @@
 
   <hr class="horizontal-divider" />
 
-  <h2>Genres</h2>
+  <!-- <h2>Genres</h2>
+
+  <div *ngIf="" class="network-chart"></div>
   <app-network-chart
     [artists]="[artist1, artist2]"
     [width]="width"
     [height]="height"
-  ></app-network-chart>
+  ></app-network-chart> 
 
-  <hr class="horizontal-divider" />
+  <hr class="horizontal-divider" />-->
 
   <h2>Country</h2>
-  <div class="actor-container">
+  <div class="actor-container" itemscope itemtype="https://schema.org/Place">
     <div class="actor-left">
-      <h3>{{artist1.name | titlecase}}</h3>
-      <h2>{{artist1.country | titlecase}}</h2>
+      <h3 itemprop="name">{{artist1.name | titlecase}}</h3>
+      <h2
+        itemprop="address"
+        itemscope
+        itemtype="https://schema.org/PostalAddress"
+      >
+        <span itemprop="addressLocality">{{artist1.country | titlecase}}</span>
+      </h2>
     </div>
 
     <div class="actor-right">
-      <h3>{{artist2.name}}</h3>
-      <h2>{{artist2.country | titlecase}}</h2>
+      <h3 itemprop="name">{{artist2.name}}</h3>
+      <h2
+        itemprop="address"
+        itemscope
+        itemtype="https://schema.org/PostalAddress"
+      >
+        <span itemprop="addressLocality">{{artist2.country | titlecase}}</span>
+      </h2>
     </div>
   </div>
 
@@ -54,15 +76,15 @@
   <h2>Occupations</h2>
   <div class="actor-container">
     <div class="actor-left">
-      <h3>{{artist1.name | titlecase}}</h3>
-      <p *ngFor="let occupation of artist1.occupations">
+      <h3 itemprop="name">{{artist1.name | titlecase}}</h3>
+      <p *ngFor="let occupation of artist1.occupations" itemprop="jobTitle">
         {{ occupation | slice:0:1 | uppercase }}{{ occupation | slice:1 }}
       </p>
     </div>
 
     <div class="actor-right">
-      <h3>{{artist2.name}}</h3>
-      <p *ngFor="let occupation of artist2.occupations">
+      <h3 itemprop="name">{{artist2.name}}</h3>
+      <p *ngFor="let occupation of artist2.occupations" itemprop="jobTitle">
         {{ occupation | slice:0:1 | uppercase }}{{ occupation | slice:1 }}
       </p>
     </div>
@@ -71,7 +93,11 @@
 </ng-container>
 
 <ng-template #loading>
-  <div class="loader-container">
+  <div
+    class="loader-container"
+    itemscope
+    itemtype="https://schema.org/LoadingSpinner"
+  >
     <div class="loader"></div>
   </div>
 </ng-template>

@@ -1,9 +1,19 @@
 <ion-content [fullscreen]="true" class="home-content">
-  <div class="intro-section">
+  <div class="intro-section" itemscope itemtype="https://schema.org/WebPage">
     <div class="intro-text">
-      <h1>Welcome to Artist Search</h1>
-      <p>Discover artists based on style, period, and country.</p>
-      <div routerLink="/artists" class="gradient-button">Search Artists</div>
+      <h1 itemprop="headline">Welcome to Artist Search</h1>
+      <p itemprop="description">
+        Discover artists based on style, period, and country.
+      </p>
+      <div
+        routerLink="/artists"
+        class="gradient-button"
+        role="link"
+        aria-label="Search Artists"
+        itemprop="url"
+      >
+        Search Artists
+      </div>
     </div>
   </div>
 </ion-content>
