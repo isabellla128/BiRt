@@ -1,0 +1,435 @@
+.artist-content {
+  --ion-background-color: black;
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  padding: 20px;
+  width: 100%;
+  display: flex;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(73, 25, 202, 0.5) transparent;
+}
+
+.artist-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px) brightness(30%);
+  z-index: -1;
+  display: flex;
+  justify-content: center;
+}
+
+.artist-background {
+  margin-top: 50px;
+  width: 70%;
+  height: 80%;
+  background: url("/assets/images/background-details.png") no-repeat center;
+  background-size: cover;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.artist-inner-container {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+}
+
+.artist-photo {
+  object-position: top;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid white;
+  margin-bottom: 15px;
+}
+
+.artist-name {
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+//----------------------------------------------
+.artist-details-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+.artist-details {
+  margin-left: 10px;
+  color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+  height: 540px;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(58, 20, 161, 0.5) transparent; /* Semi-transparent thumb, invisible track */
+}
+
+.artist-details::-webkit-scrollbar {
+  width: 6px;
+}
+
+.artist-details::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.artist-details::-webkit-scrollbar-thumb {
+  background: rgba(94, 190, 196, 0.7);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.artist-details::-webkit-scrollbar-thumb:hover {
+  background: rgba(249, 44, 133, 0.8);
+}
+
+a {
+  color: #fa9ac4;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgba(250, 38, 130, 0.8);
+}
+
+a:visited:hover {
+  color: rgba(250, 38, 130, 0.8);
+}
+
+a:visited {
+  color: #fa9ac4;
+}
+
+li {
+  text-align: left;
+  font-size: 16px;
+  color: white;
+  margin-bottom: 5px;
+}
+
+.detail {
+  width: 95%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  padding-left: 20px;
+  padding-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 10px;
+}
+
+.detail h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #f92c85;
+}
+.items {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+}
+.genre-item {
+  text-align: justify;
+  flex: 1 0 30%;
+  margin: 5px;
+}
+.items p {
+  font-size: 16px;
+  margin: 0;
+  display: inline-block;
+  color: white;
+  white-space: nowrap;
+}
+
+.items p span {
+  margin-left: 5px;
+}
+
+.items p:not(:last-child) {
+  margin-right: 10px;
+}
+
+.items-genre {
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr); /* Împărțim în 3 coloane egale */
+}
+//----------------------------------------------
+.recommendations {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+h3 {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #f92c85;
+}
+.arrow {
+  font-size: 20px;
+  cursor: pointer;
+  padding: 10px;
+  user-select: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  border-radius: 50%;
+  background-color: rgba(73, 25, 202, 0.2);
+  color: rgba(
+    255,
+    255,
+    255,
+    0.6
+  ); /* Culoare albă semi-transparentă pentru text */
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arrow.disabled {
+  cursor: default;
+  opacity: 0.3; /* Mai opace când sunt inactive */
+  background-color: rgba(73, 25, 202, 0.1);
+}
+
+.arrow.disabled:hover {
+  cursor: default;
+  opacity: 0.3;
+  background-color: rgba(73, 25, 202, 0.1);
+}
+
+.arrow:hover {
+  opacity: 1; /* Creștem opacitatea la hover pentru a face săgețile mai vizibile */
+  background-color: rgba(
+    73,
+    25,
+    202,
+    0.3
+  ); /* Oferim o nuanță mai vizibilă la hover */
+  transform: scale(
+    1.1
+  ); /* Ușor de mărire la hover pentru un efect de interactivitate */
+}
+
+.recommendation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 60%;
+  transition: transform 0.3s ease-in-out;
+  height: 250px;
+
+  .recommendation {
+    transition: transform 0.3s ease-in-out;
+    display: inline-block;
+    margin: 0 10px;
+    border-radius: 20px;
+  }
+
+  .recommendation img {
+    width: 120px;
+    height: 140px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+    border-radius: 12px;
+    object-position: top;
+  }
+}
+
+.large {
+  transform: scale(1.2);
+  transform-origin: center center; /* Keeps the scale centered */
+  border-radius: 12px;
+}
+
+.small {
+  transform: scale(0.8);
+}
+
+h2 {
+  position: relative;
+  color: #fa9ac4;
+  font-size: 14px;
+  z-index: 100;
+}
+
+//---------------------------------------------------
+@media (max-width: 768px) {
+  .background {
+    display: none;
+  }
+
+  .artist-container {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+  }
+
+  .artist-background {
+    border-radius: 0px;
+    margin-top: -170px;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+  }
+
+  .artist-content {
+    --ion-background-color: transparent;
+    background: url("/assets/images/background-details.png") no-repeat center;
+  }
+
+  .artist-photo {
+    width: 120px;
+    height: 120px;
+  }
+
+  .artist-name {
+    font-size: 24px;
+  }
+
+  .detail h3 {
+    font-size: 16px;
+  }
+
+  .detail p {
+    font-size: 14px;
+  }
+
+  .artist-details {
+    overflow: inherit;
+  }
+
+  .recommendation-container {
+    width: 100%;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  h2 {
+    font-size: 12px;
+  }
+}
+//---------------------------------------------------
+$loader-size: 50px;
+$loader-color: rgba(73, 25, 202, 0.5);
+$background-color: rgba(0, 0, 0, 0.055);
+
+.loader {
+  border: 8px solid #f3f3f3d8;
+  border-top: 8px solid $loader-color;
+  border-radius: 50%;
+  width: $loader-size;
+  height: $loader-size;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
+.horizontal-divider {
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  border: none;
+  border-top: 2px solid #cccccc6b; /* Culoarea și grosimea liniei */
+  width: 80%; /* Linia va ocupa întreaga lățime a containerului */
+}
+
+.gradient-button {
+  justify-content: center;
+  display: inline-block;
+  padding: 16px 32px;
+  background: linear-gradient(90deg, #8b337a, #5a3c9c);
+  border-radius: 30px;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  margin-top: 20px;
+  max-height: 100px;
+
+  &:hover {
+    background: linear-gradient(90deg, #a03e8e, #6b4fb0);
+  }
+
+  &.disabled {
+    background: gray;
+    cursor: not-allowed;
+  }
+}
+
+.export-rdf-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}

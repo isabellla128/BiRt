@@ -1,0 +1,93 @@
+<ion-content [fullscreen]="true" class="search-content">
+  <div class="page-container">
+    <div class="filters-and-form-container">
+      <form [formGroup]="genreForm">
+        <div class="filters-container">
+          <div class="filter-group">
+            <label for="country">Country</label>
+            <input
+              id="country"
+              type="text"
+              formControlName="country"
+              placeholder="Country"
+            />
+          </div>
+
+          <div class="filter-group">
+            <label for="fromYear">From-To Year</label>
+
+            <div class="slider-container">
+              <input
+                id="fromYear"
+                type="range"
+                min="1990"
+                max="2023"
+                formControlName="fromYear"
+                step="1"
+                class="slider"
+              />
+            </div>
+
+            <div class="slider-container">
+              <input
+                id="toYear"
+                type="range"
+                min="1990"
+                max="2023"
+                formControlName="toYear"
+                step="1"
+                class="slider"
+              />
+              <span
+                *ngIf="genreForm.get('fromYear')?.value || genreForm.get('toYear')?.value"
+                [ngStyle]="{  'width': '100%' }"
+                >{{ genreForm.get('fromYear')?.value }}-{{
+                genreForm.get('toYear')?.value }}</span
+              >
+            </div>
+          </div>
+          <span
+            *ngIf="genreForm.errors?.['yearRangeInvalid']"
+            class="error-message"
+          >
+            From should be less than To.
+          </span>
+          <div class="filter-group">
+            <div class="search-button-container">
+              <div
+                [class.disabled]="genreForm.errors?.['yearRangeInvalid']"
+                type="button"
+                class="gradient-button"
+                (click)="onSearch()"
+              >
+                Search
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="artist-container-overflow">
+      <div class="artists-container">
+        <ng-container *ngIf="genres.length > 0; else loading">
+          <div
+            class="artist-card"
+            *ngFor="let genre of genres"
+            [ngStyle]="{ 'background-image': 'url(' + getGenreImage(genre) + ')', 'background-position': 'top' }"
+          >
+            <a [routerLink]="['/genres', genre.id]">
+              <div class="text-overlay">
+                <div class="name">{{ genre.label| titlecase }}</div>
+              </div>
+            </a>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<ng-template #loading>
+  <div class="loader-container">
+    <div class="loader"></div>
+  </div>
+</ng-template>

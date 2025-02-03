@@ -1,0 +1,161 @@
+<ion-content [fullscreen]="true" class="artist-content">
+  <ng-container *ngIf="artist; else loading"
+    ><div
+      class="background"
+      [ngStyle]="{ 'background-image': 'url(' + getArtistPhoto(artist) + ')' }"
+    ></div>
+
+    <div class="artist-container">
+      <div class="artist-background">
+        <div class="artist-inner-container">
+          <div class="artist-details">
+            <div class="artist-details-header">
+              <img
+                class="artist-photo"
+                [src]="getArtistPhoto(artist)"
+                alt="Artist Image"
+              />
+
+              <h1 class="artist-name">{{ artist.name }}</h1>
+            </div>
+            <div class="detail">
+              <h3><i class="fas fa-music"></i> Genres:</h3>
+              <div class="items-genre">
+                <p
+                  *ngFor="let genre of artist.genres; let i = index"
+                  class="genre-item"
+                >
+                  <a [routerLink]="['/genres', genre.id]"
+                    >{{ genre.label | titlecase }}</a
+                  >
+                  <span *ngIf="i < artist.genres.length - 1"></span>
+                </p>
+              </div>
+            </div>
+
+            <div class="detail">
+              <h3><i class="fas fa-microphone"></i> Occupations:</h3>
+              <div class="items">
+                <p *ngFor="let occupation of artist.occupations; let i = index">
+                  {{ occupation | titlecase }}<span
+                    *ngIf="i < artist.occupations.length - 1"
+                    >,</span
+                  >
+                </p>
+              </div>
+            </div>
+
+            <div class="detail">
+              <h3><i class="fas fa-trophy"></i> Awards:</h3>
+              <div class="items">
+                <ul *ngIf="artist.awards?.length; else noAwards">
+                  <li *ngFor="let award of artist.awards; let i = index">
+                    {{ award }}<span *ngIf="i < artist.awards.length - 1"
+                      >,</span
+                    >
+                  </li>
+                </ul>
+                <ng-template #noAwards>
+                  <span>No Awards.</span>
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="detail">
+              <h3><i class="fas fa-scroll"></i> Nominations:</h3>
+              <div class="items">
+                <ul *ngIf="artist.nominations?.length; else noNominations">
+                  <li
+                    *ngFor="let nomination of artist.nominations; let i = index"
+                  >
+                    {{ nomination }}<span
+                      *ngIf="i < artist.nominations.length - 1"
+                      >,</span
+                    >
+                  </li>
+                </ul>
+                <ng-template #noNominations>
+                  <span>No Nominations.</span>
+                </ng-template>
+              </div>
+            </div>
+
+            <div class="detail">
+              <h3><i class="fas fa-guitar"></i> Instruments:</h3>
+              <div class="items">
+                <ng-container
+                  *ngIf="artist.instruments?.length; else noInstruments"
+                >
+                  <p
+                    *ngFor="let instrument of artist.instruments; let i = index"
+                  >
+                    {{ instrument | titlecase }}<span
+                      *ngIf="i < artist.instruments.length - 1"
+                      >,</span
+                    >
+                  </p>
+                </ng-container>
+                <ng-template #noInstruments>
+                  <span>No Instruments.</span>
+                </ng-template>
+              </div>
+            </div>
+
+            <h3><i class="fa fa-star"></i> Recommendations:</h3>
+            <ng-container
+              *ngIf="recommendationsDisplayed.length > 0; else loading"
+            >
+              <div class="recommendations">
+                <div
+                  class="arrow"
+                  (click)="shiftRecommendations(-1)"
+                  [class.disabled]="isLeftDisabled()"
+                >
+                  &lt;
+                </div>
+
+                <div class="recommendation-container">
+                  <div
+                    *ngFor="let recommended of recommendationsDisplayed; let i = index"
+                    class="recommendation"
+                    [ngClass]="getClass(i)"
+                  >
+                    <a [routerLink]="['/artists', recommended?.id]">
+                      <img
+                        *ngIf="recommended !== null"
+                        [src]="getArtistPhoto(recommended)"
+                        alt="Recommended Artist"
+                      />
+                      <h2>{{ recommended?.name || '' }}</h2>
+                    </a>
+                  </div>
+                </div>
+
+                <div
+                  class="arrow"
+                  (click)="shiftRecommendations(1)"
+                  [class.disabled]="isRightDisabled()"
+                >
+                  &gt;
+                </div>
+              </div>
+            </ng-container>
+            <ng-container>
+              <hr class="horizontal-divider" />
+            </ng-container>
+            <div class="export-rdf-container">
+              <div type="button" class="gradient-button" (click)="onExport()">
+                Export
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ion-content>
+<ng-template #loading>
+  <div class="loader-container">
+    <div class="loader"></div>
+  </div>
+</ng-template>

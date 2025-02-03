@@ -1,0 +1,19 @@
+.graph-content {
+  margin-top: 56px;
+  --background: url("/assets/images/background.png") no-repeat center center /
+    cover;
+  z-index: 1;
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.graph-container {
+  color: white;
+  margin-top: 20px;
+  width: 100%;
+  margin-top: 200px;
+  background-color: white;
+}

@@ -1,0 +1,223 @@
+<ion-content [fullscreen]="true" class="artist-content">
+  <ng-container *ngIf="genre; else loading"
+    ><div
+      class="background"
+      [ngStyle]="{ 'background-image': 'url(' + getGenreImage(genre) + ')' }"
+    ></div>
+    <div class="artist-container">
+      <div class="artist-background">
+        <div class="artist-inner-container">
+          <div class="artist-details">
+            <div class="artist-details-header">
+              <img
+                class="genre-photo"
+                [src]="getGenreImage(genre)"
+                alt="Genre Image"
+              />
+
+              <h1 class="artist-name">{{ genre.label | titlecase }}</h1>
+
+              <div class="detail">
+                <h3><i class="fas fa-scroll"></i> Description:</h3>
+                <div class="items">
+                  <p class="description-text">
+                    {{ genre.description | slice:0:1 | uppercase }}{{
+                    genre.description | slice:1 }}.
+                  </p>
+                </div>
+              </div>
+
+              <div class="detail">
+                <h3><i class="fas fa-music"></i> Subgenres:</h3>
+                <div class="items-subgenre">
+                  <ng-container
+                    *ngIf="genre.subgenres?.length; else noSubgenres"
+                  >
+                    <p
+                      *ngFor="let subgenre of genre.subgenres; let i = index"
+                      class="subgenre-item"
+                    >
+                      <a [routerLink]="['/genres', subgenre.id]">
+                        {{ subgenre.label| titlecase }}</a
+                      >
+                    </p>
+                  </ng-container>
+                  <ng-template #noSubgenres>
+                    <span>No Subgenres.</span>
+                  </ng-template>
+                </div>
+              </div>
+
+              <div class="detail">
+                <h3><i class="fas fa-earth"></i> Countries:</h3>
+                <div class="items">
+                  <ng-container
+                    *ngIf="genre.countries?.length; else noCountries"
+                  >
+                    <p *ngFor="let country of genre.countries; let i = index">
+                      {{ country.label | titlecase }}<span
+                        *ngIf="i < genre.countries.length - 1"
+                        >,</span
+                      >
+                    </p>
+                  </ng-container>
+                  <ng-template #noCountries>
+                    <span>No Contries.</span>
+                  </ng-template>
+                </div>
+              </div>
+
+              <div class="detail">
+                <h3><i class="fas fa-info-circle"></i> Parent Categories:</h3>
+                <div class="items-subgenre">
+                  <ng-container
+                    *ngIf="genre.parentCategories?.length; else noParentCategories"
+                  >
+                    <p
+                      *ngFor="let parentCategory of genre.parentCategories; let i = index"
+                      class="subgenre-item"
+                    >
+                      {{ parentCategory.label| titlecase }}<span
+                        *ngIf="i < genre.parentCategories.length"
+                        >,</span
+                      >
+                    </p>
+                  </ng-container>
+                  <ng-template #noParentCategories>
+                    <span>No Parent Categories.</span>
+                  </ng-template>
+                </div>
+              </div>
+
+              <div class="detail">
+                <h3><i class="fas fa-info-circle"></i> Superclasses:</h3>
+                <div class="items-subgenre">
+                  <ng-container
+                    *ngIf="genre.parentCategories?.length; else noSuperclasses"
+                  >
+                    <p
+                      *ngFor="let superclass of genre.superclasses; let i = index"
+                      class="subgenre-item"
+                    >
+                      {{ superclass.label| titlecase }}<span
+                        *ngIf="i < genre.superclasses.length - 1"
+                        >,</span
+                      >
+                    </p>
+                  </ng-container>
+
+                  <ng-template #noSuperclasses>
+                    <span>No Superclasses.</span>
+                  </ng-template>
+                </div>
+              </div>
+
+              <div class="detail">
+                <h2 style="margin-bottom: 0px">
+                  <a [href]="genre.wikipediaLink">Wikipedia Link Here </a>
+                </h2>
+              </div>
+
+              <h3><i class="fa fa-star"></i> Recommendations For Genres:</h3>
+              <ng-container
+                *ngIf="recommendationsDisplayedForGenre.length > 0; else loading"
+              >
+                <div class="recommendations">
+                  <div
+                    class="arrow"
+                    (click)="shiftRecommendationsForGenre(-1)"
+                    [class.disabled]="isLeftDisabledForGenre()"
+                  >
+                    &lt;
+                  </div>
+
+                  <div class="recommendation-container">
+                    <div
+                      *ngFor="let recommended of recommendationsDisplayedForGenre; let i = index"
+                      class="recommendation"
+                      [ngClass]="getClassForGenre(i)"
+                    >
+                      <a [routerLink]="['/genres', recommended?.id]">
+                        <img
+                          *ngIf="recommended !== null"
+                          [src]="getGenreImage(recommended)"
+                          alt="Recommended Genre"
+                        />
+
+                        <h2>{{ recommended?.label || '' }}</h2>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div
+                    class="arrow"
+                    (click)="shiftRecommendationsForGenre(1)"
+                    [class.disabled]="isRightDisabledForGenre()"
+                  >
+                    &gt;
+                  </div>
+                </div>
+              </ng-container>
+
+              <hr class="horizontal-divider" />
+
+              <ng-container
+                *ngIf="recommendationsDisplayedForArtist.length > 0; else loading"
+              >
+                <h3><i class="fa fa-star"></i> Recommendations For Artists:</h3>
+                <div class="recommendations">
+                  <div
+                    class="arrow"
+                    (click)="shiftRecommendationsForArtist(-1)"
+                    [class.disabled]="isLeftDisabledForArtist()"
+                  >
+                    &lt;
+                  </div>
+
+                  <div class="recommendation-container">
+                    <div
+                      *ngFor="let recommended of recommendationsDisplayedForArtist; let i = index"
+                      class="recommendation"
+                      [ngClass]="getClassForArtist(i)"
+                    >
+                      <a [routerLink]="['/artists', recommended?.id]">
+                        <img
+                          *ngIf="recommended !== null"
+                          [src]="getArtistPhoto(recommended)"
+                          alt="Recommended Artist"
+                        />
+                        <h2>{{ recommended?.name || '' }}</h2>
+                      </a>
+                    </div>
+                  </div>
+
+                  <div
+                    class="arrow"
+                    (click)="shiftRecommendationsForArtist(1)"
+                    [class.disabled]="isRightDisabledForArtist()"
+                  >
+                    &gt;
+                  </div>
+                </div>
+              </ng-container>
+
+              <ng-container>
+                <hr class="horizontal-divider" />
+              </ng-container>
+              <div class="export-rdf-container">
+                <div type="button" class="gradient-button" (click)="onExport()">
+                  Export
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</ion-content>
+<ng-template #loading>
+  <div class="loader-container">
+    <div class="loader"></div>
+  </div>
+</ng-template>

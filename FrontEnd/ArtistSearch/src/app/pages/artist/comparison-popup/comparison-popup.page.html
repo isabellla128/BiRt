@@ -1,0 +1,22 @@
+<div class="popup-overlay" *ngIf="show">
+  <div class="popup-overflow">
+    <div class="popup-inner-container">
+      <div class="popup">
+        <h3>Comparing:</h3>
+        <p>{{ selectedArtists[0]!.name }} vs {{ selectedArtists[1]!.name }}</p>
+
+        <div class="comparison-chart">
+          <app-comparison-chart
+            [artistId1]="selectedArtists[0].id"
+            [artistId2]="selectedArtists[1].id"
+          >
+          </app-comparison-chart>
+        </div>
+
+        <div type="button" class="gradient-button" (click)="discard.emit()">
+          Discard
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

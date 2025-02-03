@@ -1,0 +1,135 @@
+/* Stiluri pentru overlay-ul pop-up-ului */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.438); /* Fundal semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+//----------------
+.popup-overflow {
+  margin-top: 60px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100%;
+}
+
+.popup-inner-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.popup-inner-container ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.popup-inner-container ::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+.popup-inner-container ::-webkit-scrollbar-thumb {
+  background: rgba(94, 190, 196, 0.7);
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+.popup-inner-container ::-webkit-scrollbar-thumb:hover {
+  background: rgba(249, 44, 133, 0.8);
+}
+
+.popup {
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(58, 20, 161, 0.5) transparent; /* Semi-transparent thumb, invisible track */
+  width: 80%;
+  position: relative;
+  margin-top: auto;
+  background-color: rgb(18, 5, 24);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px #f92c85;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+  max-height: 80vh;
+}
+
+.comparison-chart {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #f92c85;
+}
+
+p {
+  font-size: 18px;
+  margin: 0;
+  display: inline-block;
+  color: white;
+  white-space: nowrap;
+}
+
+.gradient-button {
+  justify-content: center;
+  display: inline-block;
+  padding: 16px 32px;
+  background: linear-gradient(90deg, #8b337a, #5a3c9c);
+  border-radius: 30px;
+  border: none;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+  max-height: 100px;
+
+  &:hover {
+    background: linear-gradient(90deg, #a03e8e, #6b4fb0);
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .popup {
+    width: 90%; /* Lățimea pop-up-ului pentru ecrane mai mici */
+  }
+
+  h3 {
+    font-size: 1.2rem; /* Mărimea fontului pentru titlu pe mobil */
+  }
+
+  p {
+    font-size: 0.9rem; /* Mărimea fontului pentru text pe mobil */
+  }
+
+  button {
+    font-size: 0.9rem; /* Mărimea fontului pentru buton pe mobil */
+  }
+}

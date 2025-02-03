@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <div class="menu-options">
+      <div class="left-items">
+        <img src="/assets/images/logo.png" alt="Logo" class="logo-image" />
+        <span class="text-and-logo">Artist Search</span>
+      </div>
+      <div class="right-items">
+        <a routerLink="/home" routerLinkActive="active" class="menu-item"
+          ><span class="menu-item-text">Home</span></a
+        >
+        <a routerLink="/artists" routerLinkActive="active" class="menu-item"
+          ><span class="menu-item-text">Artists</span></a
+        >
+        <a routerLink="/genres" routerLinkActive="active" class="menu-item"
+          ><span class="menu-item-text">Genres</span></a
+        >
+        <a routerLink="/graphs" routerLinkActive="active" class="menu-item"
+          ><span class="menu-item-text">Graphs</span></a
+        >
+      </div>
+      <div class="burger-menu" (click)="toggleMenu()">
+        <span class="burger-icon">&#9776;</span>
+      </div>
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<!-- Mobile menu (hidden by default) -->
+<div class="mobile-menu" [ngClass]="{ open: isMenuOpen }">
+  <a
+    routerLink="/home"
+    routerLinkActive="active"
+    class="menu-item"
+    (click)="toggleMenu()"
+    ><span class="menu-item-text">Home</span></a
+  >
+  <a
+    routerLink="/artists"
+    routerLinkActive="active"
+    class="menu-item"
+    (click)="toggleMenu()"
+    ><span class="menu-item-text">Artists</span></a
+  >
+  <a
+    routerLink="/genres"
+    routerLinkActive="active"
+    class="menu-item"
+    (click)="toggleMenu()"
+    ><span class="menu-item-text">Genres</span></a
+  >
+  <a
+    routerLink="/graphs"
+    routerLinkActive="active"
+    class="menu-item"
+    (click)="toggleMenu()"
+    ><span class="menu-item-text">Graphs</span></a
+  >
+</div>

@@ -1,0 +1,21 @@
+<div class="popup-overlay" *ngIf="show">
+  <div class="popup-overflow">
+    <div class="popup-inner-container">
+      <div class="popup">
+        <h3>Visualize:</h3>
+
+        <div class="visualize-chart">
+          <app-general-network-chart
+            [artists]="artists"
+            [width]="width"
+            [height]="height"
+          ></app-general-network-chart>
+        </div>
+
+        <div type="button" class="gradient-button" (click)="discard.emit()">
+          Discard
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
