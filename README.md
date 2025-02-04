@@ -271,7 +271,7 @@ Thank you for using ArtistSearch! We hope you enjoy discovering new artists and 
 ## :wave: Contributing
 
 <a href="https://github.com/isabellla128/BiRt/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=isabellla128/BiRt" />
+  <img src="https://contrib.rocks/image?repo=isabellla128/BiRt&nocache=1" />
 </a>
 
 Contributions are always welcome!
