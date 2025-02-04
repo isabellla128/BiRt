@@ -64,10 +64,10 @@
 ### :camera: Diagrams
 
 <div align="center"> 
-  <img src="assets/diagrams/_.jpg" alt="C1 Diagram" />
-  <img src="assets/diagrams/_.jpg" alt="C2 Diagram" />
-  <img src="scholarly-html/images/_.jpeg" alt="Cloud Infrastructure" />
-  <img src="scholarly-html/images/statechart.png" alt="Statechart" />
+  <img src="assets/diagrama1.drawio.png" alt="C1 Diagram" />
+  <img src="assets/diagrama2.drawio.png" alt="C2 Diagram" />
+  <img src="assets/diagrama_infrastructura.drawio.png" alt="Cloud Infrastructure" />
+  <img src="assets/statechart.png" alt="Statechart" />
 </div>
 
 ### :camera: OpenAPI Specification
@@ -127,11 +127,9 @@ You can find our OpenAPI specification <a href="https://github.com/isabellla128/
 
 ## :toolbox: Getting Started
 
-User Guide for ArtistSearch
+### Guide for ArtistSearch
 
 Welcome to ArtistSearch, the ultimate platform for discovering and exploring artists, music genres, and relationships between them. This guide will help you navigate the application and utilize its features effectively. For a more detailed guide, access the [documenatation](https://github.com/isabellla128/BiRt/blob/main/scholarly-html/index.html).
-
-## Getting Started
 
 ### Installation and Access
 
