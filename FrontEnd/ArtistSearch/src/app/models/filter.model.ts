@@ -1,6 +1,6 @@
 export interface FilterModel {
-  genre?: string | null;
-  country?: string | null;
-  fromYear?: number | null;
-  toYear?: number | null;
+  genre: string;
+  country: string;
+  fromYear: number;
+  toYear: number;
 }
