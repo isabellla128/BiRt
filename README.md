@@ -20,6 +20,9 @@
   <a href="https://github.com/isabellla128/BiRt/issues/">
     <img src="https://img.shields.io/github/issues/isabellla128/BiRt" alt="open issues" />
   </a>
+  <a href="https://github.com/isabellla128/BiRt/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/isabellla128/BiRt.svg" alt="license" />
+  </a>
 </p>
    
 <h4>
@@ -49,6 +52,7 @@
     -   [Screenshots](#camera-screenshots)
 -   [Roadmap](#compass-roadmap)
 -   [Contributing](#wave-contributing)
+-   [License](#warning-license)
 -   [Contact](#handshake-contact)
 -   [Acknowledgements](#gem-acknowledgements)
 -   [Tags](#label-tags)
@@ -275,6 +279,11 @@ Thank you for using ArtistSearch! We hope you enjoy discovering new artists and 
 </a>
 
 Contributions are always welcome!
+
+## :warning: License
+
+Distributed under the [MIT License](https://opensource.org/license/mit/). See [LICENSE](https://github.com/isabellla128/BiRt/blob/main/LICENSE) for more information.
+
 
 ## :handshake: Contact
 
