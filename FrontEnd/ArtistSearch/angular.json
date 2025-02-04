@@ -16,11 +16,9 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": {
-              "base": "www"
-            },
+            "outputPath": "dist/my-flix-angular-client",
             "index": "src/index.html",
             "polyfills": [
               "src/polyfills.ts"
@@ -39,20 +37,15 @@
               "src/theme/variables.scss"
             ],
             "scripts": [],
-            "browser": "src/main.ts"
+            "main": "src/main.ts"
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "2mb",
+                  "maximumWarning": "4mb",
                   "maximumError": "5mb"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
                 }
               ],
               "fileReplacements": [
@@ -139,7 +132,8 @@
   "cli": {
     "schematicCollections": [
       "@ionic/angular-toolkit"
-    ]
+    ],
+    "analytics": "20c617e3-8eb6-4922-b72f-54265e406c8f"
   },
   "schematics": {
     "@ionic/angular-toolkit:component": {
