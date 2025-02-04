@@ -101,7 +101,7 @@ You can find our OpenAPI specification <a href="https://github.com/isabellla128/
     <li><a href="https://aws.amazon.com/elasticbeanstalk/">Elastic Beanstalk</a></li>
     <li><a href="https://aws.amazon.com/eventbridge/">Event Bridge</a></li>
     <li><a href="https://aws.amazon.com/cloudwatch/">CloudWatch</a></li>
-    <li><a href="https://aws.amazon.com/vpn/">AWS VPN</a></li>
+    <li><a href="https://docs.aws.amazon.com/vpc/latest/userguide/what-is-amazon-vpc.html">AWS VPC</a></li>
   </ul>
 </details>
 
