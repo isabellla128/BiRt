@@ -1,6 +1,6 @@
 <div align="center">
 
-  <img src="assets/logo.png" alt="logo" width="200" height="auto" />
+  <img src="scholarly-html/images/logo.png" alt="logo" width="200" height="auto" />
   <h1>WADe - Artist Search</h1>
     <h2>Big Data Retriever</h2>
 
@@ -40,13 +40,13 @@
 
 -   [About the Project](#star2-about-the-project)
     -   [Diagrams](#camera-diagrams)
-    -   [OpenAPI](#camera-openapi-specification)
+    -   [OpenAPI](#book-openapi-specification)
     -   [Tech Stack](#space_invader-tech-stack)
     -   [Features](#dart-features)
 -   [Getting Started](#toolbox-getting-started)
     -   [Installation and Access](#installation-and-access)
-    -   [Main UseCases](#main-features)
-    -   [Screenshots](#screenshots)
+    -   [Main UseCases](#rocket-main-features)
+    -   [Screenshots](#camera-screenshots)
 -   [Roadmap](#compass-roadmap)
 -   [Contributing](#wave-contributing)
 -   [Contact](#handshake-contact)
@@ -58,19 +58,19 @@
 ### :camera: Logo
 
 <div align="center"> 
-  <img src="assets/logo.png" alt="logo" />
+  <img src="scholarly-html/images/logo.png" alt="logo" />
 </div>
 
 ### :camera: Diagrams
 
 <div align="center"> 
-  <img src="assets/diagrama1.drawio.png" alt="C1 Diagram" />
-  <img src="assets/diagrama2.drawio.png" alt="C2 Diagram" />
-  <img src="assets/diagrama_infrastructura.drawio.png" alt="Cloud Infrastructure" />
-  <img src="assets/statechart.png" alt="Statechart" />
+  <img src="scholarly-html/images/diagrama1.drawio.png" alt="C1 Diagram" />
+  <img src="scholarly-html/images/diagrama2.drawio.png" alt="C2 Diagram" />
+  <img src="scholarly-html/images/diagrama_infrastructura.drawio.png" alt="Cloud Infrastructure" />
+  <img src="scholarly-html/images/statechart.png" alt="Statechart" />
 </div>
 
-### :camera: OpenAPI Specification
+### :book: OpenAPI Specification
 
 You can find our OpenAPI specification <a href="https://github.com/isabellla128/BiRt/blob/main/swagger.yaml">here</a>.
 
@@ -139,7 +139,7 @@ Welcome to ArtistSearch, the ultimate platform for discovering and exploring art
 
 Upon entering the application, you will find the main navigation options that allow you to explore artists, genres, and detailed analytics about the music industry.
 
-## Main Features
+## :rocket: Main Features
 
 ### Exploring Artists
 
@@ -172,7 +172,7 @@ These visualizations dynamically update according to the applied filters.
 
 The Genres Page provides a comprehensive list of music genres. A filtering option allows users to display only genres associated with a specific country. Clicking on a genre reveals more information, including all its subgenres, which can be further explored. Additionally, users have the option to export the genre's data in RDF format using the dedicated export button.
 
-## Additional Features
+## :rocket: Additional Features
 
 ### Intelligent Artist and Genre Recommendations
 
@@ -191,30 +191,44 @@ Additionally, on the Genre Page, at the bottom, users can explore two recommenda
 
 These additional recommendations enhance the discovery experience, helping users find both new artists and related music genres effortlessly.
 
-## Tips for a Better Experience
+## :bulb: Tips for a Better Experience
 
 - **Use Filters**: Narrow down searches efficiently to find relevant artists and genres.
 - **Explore Graphs**: Utilize visualizations to understand relationships between artists and genres.
 - **Check Recommendations**: Discover new artists based on intelligent filtering.
 
-## Troubleshooting
+## :hammer_and_wrench: Troubleshooting
 
 For any issues, ensure you have a stable internet connection. If data appears outdated, allow some time for updates, as the system periodically refreshes its cache.
 
 Thank you for using ArtistSearch! We hope you enjoy discovering new artists and genres.
 
-## Screenshots
+## :camera: Screenshots
 
-<img src="docs/src/images/home_page.png" alt="HomePage">
-<img src="docs/src/images/create_page.png" alt="CreatePage">
-<img src="docs/src/images/login_page.png" alt="LoginPage">
-<img src="docs/src/images/main_page.png" alt="MainPage">
-<img src="docs/src/images/nav_bar.png" alt="NavBar">
-<img src="docs/src/images/sparql_page.png" alt="Sparql">
-<img src="docs/src/images/chat_page.png" alt="ChatPage" style="width: 800px;">
-<img src="docs/src/images/garden_page.png" alt="GardenPage">
-<img src="docs/src/images/exhibition_page.png" alt="ExhibitionPage">
-<img src="docs/src/images/plant_page.png" alt="PlantPage">
+<img src="scholarly-html/images/ss_home.png" alt="HomePageWeb">
+<img src="scholarly-html/images/ss_artists.png" alt="ArtistsPageWeb">
+<img src="scholarly-html/images/ss_genres.png" alt="GenresPageWeb">
+<img src="scholarly-html/images/ss_artist_details.png" alt="ArtistPage">
+<img src="scholarly-html/images/ss_genre_details.png" alt="GenreDetails">
+<img src="scholarly-html/images/ss_compare_artists.png" alt="CompareArtists">
+<img src="scholarly-html/images/ss_artist_recommendation.png" alt="ArtistRecommendation">
+<img src="scholarly-html/images/ss_genre_recommendations.png" alt="GenreRecommendations">
+<img src="scholarly-html/images/ss_summary1.png" alt="SummaryPage1">
+<img src="scholarly-html/images/ss_summary2.png" alt="SummaryPage2">
+<img src="scholarly-html/images/ss_summary3.png" alt="SummaryPage3">
+<img src="scholarly-html/images/ss_visualize.png" alt="VisualizePopUp">
+<img src="scholarly-html/images/ss_contact.png" alt="ContactPage">
+
+## :camera: Mobile Screenshots
+
+<img src="scholarly-html/images/phone_artists.png" alt="ArtistsPageMobile">
+<img src="scholarly-html/images/phone_genres.png" alt="GenresPageMobile">
+<img src="scholarly-html/images/phone_artist_details.png" alt="ArtistPageMobile">
+<img src="scholarly-html/images/phone_compare.png" alt="CompareArtistsMobile">
+<img src="scholarly-html/images/phone_artist_recommendations.png" alt="ArtistRecommendationMobile">
+<img src="scholarly-html/images/phone_summary.png" alt="SummaryPageMobile">
+<img src="scholarly-html/images/phone_visualize.png" alt="VisualizePopUpMobile">
+<img src="scholarly-html/images/phone_contact.png" alt="ContactPageMobile">
 
 ## :compass: Roadmap
 
