@@ -23,7 +23,7 @@
 </p>
    
 <h4>
-    <a href="youtube">View Demo</a>
+    <a href="https://www.youtube.com/watch?v=Lc0mh2wGw28">View Demo</a>
   <span> · </span>
     <a href="https://github.com/isabellla128/BiRt/blob/main/scholarly-html/index.html">Scholarly HTML Report</a>
   <span> · </span>
