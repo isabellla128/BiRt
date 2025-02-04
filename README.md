@@ -67,7 +67,7 @@
   <img src="scholarly-html/images/diagrama1.drawio.png" alt="C1 Diagram" />
   <img src="scholarly-html/images/diagrama2.drawio.png" alt="C2 Diagram" />
   <img src="scholarly-html/images/diagrama_infrastructura.drawio.png" alt="Cloud Infrastructure" />
-  <img src="scholarly-html/images/statechart.png" alt="Statechart" />
+  <img src="scholarly-html/images/flow-chart.drawio.png" alt="Statechart" />
 </div>
 
 ### :book: OpenAPI Specification
