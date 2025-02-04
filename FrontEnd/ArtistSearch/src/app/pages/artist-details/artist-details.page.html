@@ -23,6 +23,13 @@
                 property="image"
               />
               <h1 class="artist-name" property="name">{{ artist.name }}</h1>
+              <h1
+                class="artist-name"
+                [ngStyle]="{'font-size': '20px'}"
+                property="country"
+              >
+                {{ artist.country }}
+              </h1>
             </div>
 
             <div class="detail">
