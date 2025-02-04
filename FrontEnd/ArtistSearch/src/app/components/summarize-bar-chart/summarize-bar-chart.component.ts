@@ -40,7 +40,6 @@ export class SummarizeBarChartComponent implements OnInit {
     }
 
     if (this.data) {
-      console.log(this.data);
       this.createSummarizeBarChart();
     }
   }

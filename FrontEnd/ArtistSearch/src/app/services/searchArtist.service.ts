@@ -58,7 +58,6 @@ export class SearchArtistService {
 
     const cachedData = this.getCache(cacheKey);
     if (cachedData) {
-      console.log('Loaded artists from cache.');
       return of(cachedData);
     }
 
@@ -67,7 +66,6 @@ export class SearchArtistService {
       .pipe(
         tap((response) => {
           this.setCache(cacheKey, response);
-          console.log('Fetched artists from API and cached.');
         })
       );
   }
@@ -91,7 +89,6 @@ export class SearchArtistService {
     const cachedData = this.getCache(cacheKey);
 
     if (cachedData) {
-      console.log('Loaded summarize data from cache.');
       return of(cachedData);
     }
 
@@ -100,7 +97,6 @@ export class SearchArtistService {
       .pipe(
         tap((response) => {
           this.setCache(cacheKey, response);
-          console.log('Fetched summarize data from API and cached.');
         })
       );
   }
@@ -110,14 +106,12 @@ export class SearchArtistService {
     const cachedData = this.getCache(cacheKey);
 
     if (cachedData) {
-      console.log(`Loaded artist ${id} from cache.`);
       return of(cachedData);
     }
 
     return this.http.get<ArtistModel>(`${this.apiUrl}/${id}`).pipe(
       tap((response) => {
         this.setCache(cacheKey, response);
-        console.log(`Fetched artist ${id} from API and cached.`);
       })
     );
   }
@@ -135,7 +129,6 @@ export class SearchArtistService {
     const cachedData = this.getCache(cacheKey);
 
     if (cachedData) {
-      console.log(`Loaded recommendations for artist ${id} from cache.`);
       return of(cachedData);
     }
 
@@ -144,9 +137,6 @@ export class SearchArtistService {
       .pipe(
         tap((response) => {
           this.setCache(cacheKey, response);
-          console.log(
-            `Fetched recommendations for artist ${id} from API and cached.`
-          );
         })
       );
   }
@@ -163,7 +153,6 @@ export class SearchArtistService {
             now - parsedItem.timestamp >= this.CACHE_EXPIRATION_MS
           ) {
             sessionStorage.removeItem(key);
-            console.log(`Cache cleared for key: ${key}`);
           }
         } catch (error) {
           console.warn(`Invalid cache entry for key: ${key}`);

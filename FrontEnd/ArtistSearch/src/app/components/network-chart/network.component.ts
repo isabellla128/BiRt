@@ -18,7 +18,6 @@ export class NetworkChartComponent implements OnInit {
   
   ngOnInit(): void {
     if (this.artists.length > 0) {
-      console.log('network');
       this.createNetworkChart();
     }
   }
@@ -26,9 +25,6 @@ export class NetworkChartComponent implements OnInit {
   createNetworkChart(): void {
     const nodes = this.extractNodes(this.artists);
     const links = this.extractLinks(this.artists);
-
-    console.log('Nodes:', nodes);
-    console.log('Links:', links);
 
     // Validate nodes and links
     if (!nodes || !links || nodes.length === 0 || links.length === 0) {

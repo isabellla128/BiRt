@@ -53,7 +53,6 @@ export class ArtistDetailsPage {
     this.searchArtistService
       .getArtistByIdExport(this.artist!.id)
       .subscribe((data: any) => {
-        console.log(data);
         this.downloadFile(
           data,
           `artist_${this.artist!.id}.xml`,
@@ -99,7 +98,6 @@ export class ArtistDetailsPage {
       this.searchArtistService.getArtistByIdRecommend(artistId).subscribe(
         (response: ResponseArtistSummaryModel) => {
           this.recommendations = response.artists;
-          console.log(response.artists);
           this.updateDisplayedRecommendations();
         },
         (error) => {

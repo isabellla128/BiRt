@@ -34,7 +34,6 @@ export class GenrePage {
     this.subscriptions.push(
       this.searchGenreService.getGenres().subscribe(
         (response: ResponseGenreSummaryModel) => {
-          console.log(response);
           this.genres = response.genres;
         },
         (error) => {
@@ -60,11 +59,9 @@ export class GenrePage {
     if (this.genreForm.valid) {
       const { country, fromYear, toYear } = this.genreForm.value;
 
-      console.log('Searching for:', country, fromYear, toYear);
       this.subscriptions.push;
       this.searchGenreService.getGenres(country, fromYear, toYear).subscribe(
         (response: ResponseGenreSummaryModel) => {
-          console.log(response);
           this.genres = response.genres;
         },
         (error) => {

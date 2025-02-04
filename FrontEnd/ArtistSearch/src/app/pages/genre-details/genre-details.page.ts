@@ -62,7 +62,6 @@ export class GenreDetailsPage {
     this.searchGenreService
       .getArtistByIdExport(this.genre!.id)
       .subscribe((data: any) => {
-        console.log(data);
         this.downloadFile(
           data,
           `genre_${this.genre!.id}.xml`,

@@ -57,7 +57,6 @@ export class ArtistPage implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.searchService.getArtists().subscribe(
         (response: ResponseArtistSummaryModel) => {
-          console.log(response);
           this.artists = response.artists;
         },
         (error) => {
@@ -135,13 +134,11 @@ export class ArtistPage implements OnInit, OnDestroy {
     if (this.searchForm.valid) {
       const { genre, country, fromYear, toYear } = this.searchForm.value;
 
-      console.log('Searching for:', genre, country, fromYear, toYear);
       this.subscriptions.push(
         this.searchService
           .getArtists(genre, country, fromYear, toYear)
           .subscribe(
             (response: ResponseArtistSummaryModel) => {
-              console.log(response);
               this.artists = response.artists;
             },
             (error) => {

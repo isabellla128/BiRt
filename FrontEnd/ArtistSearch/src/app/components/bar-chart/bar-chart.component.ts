@@ -17,7 +17,6 @@ export class BarChartComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.artist1 && this.artist2) {
-      console.log('bar');
       this.createBarChart();
     }
   }

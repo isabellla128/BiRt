@@ -57,14 +57,13 @@ export class SearchGenreService {
     to?: number
   ): Observable<ResponseGenreSummaryModel> {
     const params = this.buildParams(country, from, to);
-    const cacheKey = `cachedGenres_${country || 'all'}_${from || 'start'}_${
-      to || 'end'
-    }`;
+    const cacheKey = `cachedGenres_${country?.toLowerCase() || 'all'}_${
+      from || 'start'
+    }_${to || 'end'}`;
 
     const cachedData = this.getCache(cacheKey);
 
     if (cachedData) {
-      console.log('Loaded genres from cache.');
       return of(cachedData);
     } else {
       return this.http
@@ -72,7 +71,6 @@ export class SearchGenreService {
         .pipe(
           tap((response) => {
             this.setCache(cacheKey, response);
-            console.log('Fetched genres from API and cached.');
           })
         );
     }
@@ -84,13 +82,11 @@ export class SearchGenreService {
     const cachedData = this.getCache(cacheKey);
 
     if (cachedData) {
-      console.log(`Loaded genre ${id} from cache.`);
       return of(cachedData);
     } else {
       return this.http.get<GenreModel>(`${this.apiUrl}/${id}`).pipe(
         tap((response) => {
           this.setCache(cacheKey, response);
-          console.log(`Fetched genre ${id} from API and cached.`);
         })
       );
     }
@@ -113,7 +109,6 @@ export class SearchGenreService {
     const cachedData = this.getCache(cacheKey);
 
     if (cachedData) {
-      console.log(`Loaded genre recommendations for genre ${id} from cache.`);
       return of(cachedData);
     } else {
       return this.http
@@ -121,9 +116,6 @@ export class SearchGenreService {
         .pipe(
           tap((response) => {
             this.setCache(cacheKey, response);
-            console.log(
-              `Fetched genre recommendations for genre ${id} from API and cached.`
-            );
           })
         );
     }
@@ -137,7 +129,6 @@ export class SearchGenreService {
     const cachedData = this.getCache(cacheKey);
 
     if (cachedData) {
-      console.log(`Loaded artist recommendations for genre ${id} from cache.`);
       return of(cachedData);
     } else {
       return this.http
@@ -147,9 +138,6 @@ export class SearchGenreService {
         .pipe(
           tap((response) => {
             this.setCache(cacheKey, response);
-            console.log(
-              `Fetched artist recommendations for genre ${id} from API and cached.`
-            );
           })
         );
     }

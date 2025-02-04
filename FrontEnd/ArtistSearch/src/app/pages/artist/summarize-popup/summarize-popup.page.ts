@@ -36,7 +36,6 @@ export class SummarizePopupComponent {
   constructor(private readonly searchService: SearchArtistService) {}
 
   ngOnInit() {
-    console.log('filters', this.filters);
     this.searchService
       .getSummarize(
         this.filters.genre,
@@ -50,7 +49,6 @@ export class SummarizePopupComponent {
           if (this.data) {
             this.isGraphShown = true;
           }
-          console.log(response);
         },
         (error) => console.error('Error getting summarize data.')
       );
