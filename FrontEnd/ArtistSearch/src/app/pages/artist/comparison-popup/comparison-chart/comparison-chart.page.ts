@@ -3,22 +3,16 @@ import { Component, Input, OnInit } from '@angular/core';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { forkJoin } from 'rxjs';
 import { BarChartComponent } from '../../../../components/bar-chart/bar-chart.component';
-import { NetworkChartComponent } from '../../../../components/network-chart/network.component';
 import { ArtistModel } from '../../../../models/artist.model';
 import { SearchArtistService } from '../../../../services/searchArtist.service';
 
 @Component({
   selector: 'app-comparison-chart',
   standalone: true,
-  imports: [
-    CommonModule,
-    BarChartComponent,
-    NetworkChartComponent,
-    NgxSpinnerModule,
-  ],
-  providers: [SearchArtistService],
+  imports: [CommonModule, BarChartComponent, NgxSpinnerModule],
   templateUrl: './comparison-chart.page.html',
   styleUrls: ['./comparison-chart.page.scss'],
+  providers: [SearchArtistService],
 })
 export class ComparisonChartComponent implements OnInit {
   @Input() artistId1: string | undefined;

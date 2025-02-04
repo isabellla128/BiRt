@@ -21,6 +21,7 @@ import { SearchArtistService } from '../../../services/searchArtist.service';
     '../comparison-popup/comparison-popup.page.scss',
     './summarize-popup.page.scss',
   ],
+  providers: [SearchArtistService],
 })
 export class SummarizePopupComponent {
   @Input() filters!: FilterModel;

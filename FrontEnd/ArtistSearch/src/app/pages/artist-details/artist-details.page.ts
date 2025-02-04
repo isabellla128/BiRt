@@ -23,6 +23,7 @@ import { SearchArtistService } from '../../services/searchArtist.service';
   ],
   templateUrl: './artist-details.page.html',
   styleUrls: ['./artist-details.page.scss'],
+  providers: [SearchArtistService],
 })
 export class ArtistDetailsPage {
   artist: ArtistModel | undefined;
